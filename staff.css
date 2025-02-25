@@ -1,0 +1,29 @@
+
+body {
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: grey;
+    color: white;
+    padding: 10px;
+}
+
+
+.main {
+    display: flex;
+}
+
+.filter {
+    width: 15%;
+    background-color: #f4f4f4;
+    padding: 10px;
+}
+
+.display {
+    width: 85%;
+    padding: 10px;
+}
