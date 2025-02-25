@@ -20,21 +20,27 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    
 }
 .search {
     position: relative;
-    width: 300px; /* Adjust width as needed */
     margin: 0 auto;
     border-radius: 25px;
-    overflow: hidden; /* Ensures the border-radius applies to the entire element */
+    color: var(--ThemeWhite);
 }
 
 .input {
     width: 100%;
     padding: 10px;
-    padding-left: 40px; /* Ensure space for the icon */
-    border: 1px solid #ccc;
+    padding-left: 40px;
+    border: 1px solid var(--ThemeGrey);
     border-radius: 25px;
+    background-color: var(--ThemeGrey);
+    color: var(--ThemeWhite);
+    
+}
+.input::placeholder {
+    color: var(--ThemeWhite);
 }
 
 .svg_icon {
@@ -44,7 +50,7 @@ body {
     transform: translateY(-50%);
     width: 20px;
     height: 20px;
-    fill: #ccc; /* Adjust icon color */
+    fill: var(--ThemeWhite);
 }
 
 
