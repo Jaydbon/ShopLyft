@@ -1,29 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root{
+    --ThemeBlack: #011627;
+    --ThemeGrey: #5D737E;
+    --ThemeWhite: #F6F7F8;
+    --ThemeBlue: #20A4F3;
+    --ThemeGreen: #90A955;
+}
+
 
 body {
     margin: 0;
+    font-family: "Poppins", serif;
 }
 
+
+/* ------------------------------------------------------------------------- Start of navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: grey;
-    color: white;
     padding: 10px;
 }
+.search {
+    position: relative;
+    width: 300px; /* Adjust width as needed */
+    margin: 0 auto;
+    border-radius: 25px;
+    overflow: hidden; /* Ensures the border-radius applies to the entire element */
+}
 
+.input {
+    width: 100%;
+    padding: 10px;
+    padding-left: 40px; /* Ensure space for the icon */
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+.svg_icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    fill: #ccc; /* Adjust icon color */
+}
+
+
+
+/* ------------------------------------------------------------------------- Start of Main */
 
 .main {
     display: flex;
+    background-color: var(--ThemeWhite);
 }
 
+
+/* ------------------------------------------------------------------------- Start of Filters */
 .filter {
     width: 15%;
-    background-color: #f4f4f4;
-    padding: 10px;
+    padding: 25px;
+    color: var(--ThemeBlack);
 }
+
+.filter h1 {
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.filter h2 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.filter ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+
+
+/* ------------------------------------------------------------------------- Start of Display */
 
 .display {
     width: 85%;
     padding: 10px;
 }
+

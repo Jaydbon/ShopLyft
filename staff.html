@@ -9,41 +9,50 @@
 <body>
     <div class="navbar">
         <a href="">shoplyft</a>
-        <input type="text" placeholder="Search...">
+        <div class="search">
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg_icon bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path></svg>
+            <input class="input" type="text" placeholder="Search">    
+        </div>
+        
         <a href="">staff</a>
     </div>
 
     <div class="main">
+
         <div class="filter">
-            <p>Filters</p>
-            <h1>Brand</h1>
+            <h1>Filters</h1>
+            <h2>Brand</h2>
             <ul>
                 <li><label for="Nike"><input type="checkbox" id="Nike" name="brand" value="Nike">Nike</label></li>
                 <li><label for="Old Navy"><input type="checkbox" id="Old Navy" name="brand" value="Old Navy">Old Navy</label></li>
                 <li><label for="Champion"><input type="checkbox" id="Champion" name="brand" value="Champion">Champion</label></li>
             </ul>
-            <h1>Size</h1>
+            <h2>Size</h2>
             <ul>
-                <li><label for="Small"><input type="checkbox" id="Small" name="brand" value="Small">Small</label></li>
-                <li><label for="Medium"><input type="checkbox" id="Medium" name="brand" value="Medium">Medium</label></li>
-                <li><label for="Large"><input type="checkbox" id="Large" name="brand" value="Large">Large</label></li>
+                <li><label for="Small"><input type="checkbox" id="Small" name="size" value="Small">Small</label></li>
+                <li><label for="Medium"><input type="checkbox" id="Medium" name="size" value="Medium">Medium</label></li>
+                <li><label for="Large"><input type="checkbox" id="Large" name="size" value="Large">Large</label></li>
             </ul>
-            <h1>Gender</h1>
+            <h2>Gender</h2>
             <ul>
-                <li><label for="Nike"><input type="checkbox" id="Nike" name="brand" value="Nike">Nike</label></li>
-                <li><label for="Old Navy"><input type="checkbox" id="Old Navy" name="brand" value="Old Navy">Old Navy</label></li>
-                <li><label for="champion"><input type="checkbox" id="Champion" name="brand" value="Champion">Champion</label></li>
+                <li><label for="Male"><input type="checkbox" id="Male" name="gender" value="Male">Male</label></li>
+                <li><label for="Female"><input type="checkbox" id="Female" name="gender" value="Female">Female</label></li>
+                <li><label for="Unisex"><input type="checkbox" id="Unisex" name="gender" value="Unisex">Unisex</label></li>
             </ul>
-            <h1>Type</h1>
+            <h2>Type</h2>
             <ul>
-                <li><label for="Nike"><input type="checkbox" id="Nike" name="brand" value="Nike">Nike</label></li>
-                <li><label for="Old Navy"><input type="checkbox" id="Old Navy" name="brand" value="Old Navy">Old Navy</label></li>
-                <li><label for="champion"><input type="checkbox" id="Champion" name="brand" value="Champion">Champion</label></li>
+                <li><label for="Pants"><input type="checkbox" id="Pants" name="type" value="Pants">Pants</label></li>
+                <li><label for="Shirt"><input type="checkbox" id="Shirt" name="type" value="Shirt">Shirt</label></li>
+                <li><label for="Socks"><input type="checkbox" id="Socks" name="type" value="Socks">Socks</label></li>
             </ul>
 
         </div>
+
         <div class="display">
             <p>Items</p>
+            <div class="card">
+
+            </div>
         </div>
     </div>
 </body>
