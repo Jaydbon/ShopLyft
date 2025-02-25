@@ -10,6 +10,7 @@
 
 body {
     margin: 0;
+    padding: 0;
     font-family: "Poppins", serif;
 }
 
@@ -20,8 +21,18 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    color: var(--ThemeBlack);
     
 }
+.navbar a {
+    color: var(--ThemeBlack);
+    text-decoration: none;
+    padding: 0 25px;
+}
+.navbar a:hover{
+    text-decoration: underline;
+}
+
 .search {
     position: relative;
     margin: 0 auto;
@@ -91,6 +102,34 @@ body {
 
 .display {
     width: 85%;
-    padding: 10px;
+}
+
+/* Cards */
+
+.card {
+    background-color: var(--ThemeGrey);
+    color: var(--ThemeWhite);
+    width: 200px;
+    border-radius: 14px;
+    height: 250px;
+    margin: 20px;
+    float: left;
+}
+
+.card img {
+    height: 200px;
+    width: 200px;
+}
+.card .info *{
+    padding: 0 10px;
+    margin: 0;
+}
+
+.card .title {
+    font-size: 12px; 
+}
+
+.card .stock {
+    font-size: 12px;
 }
 
