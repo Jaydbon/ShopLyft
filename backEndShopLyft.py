@@ -78,6 +78,20 @@ class ClothingCatalogue:
             return {'message': f"Items sorted by {attribute} successfully."}
         return {'message': "Invalid sorting attribute."}
 
+    def get_items_as_strings(self):
+    return [
+        {
+            'name': str(item.name),
+            'size': str(item.size),
+            'colour': str(item.colour),
+            'gender': str(item.gender),
+            'price': str(item.price),
+            'quantity': str(item.quantity),
+            'brand': str(item.brand)
+        }
+        for item in self.items
+    ]
+
     def display_items(self):
         return [item.to_dict() for item in self.items]
 
@@ -121,6 +135,9 @@ class ClothingStore:
 
     def sort_items(self, attribute):
         return self.catalogue.sort_items(attribute)
+
+    def get_items_as_strings(self):
+        return self.catalogue.get_items_as_strings()
 
     def view_items(self):
         return self.catalogue.display_items()
