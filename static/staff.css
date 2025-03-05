@@ -130,7 +130,18 @@ body {
 }
 
 .card .stock {
+    display: inline-block;
     font-size: 12px;
+    width: 50%;
 }
 
+
+.card button {
+    display: inline-block;
+    border-radius: 25px;
+    color: var(--ThemeBlack);
+    background-color: var(--ThemeWhite);
+    border-color: var(--ThemeWhite);
+    width: 75px;
+}
 
