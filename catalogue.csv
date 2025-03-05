@@ -1,5 +1,5 @@
-name,size,colour,gender,price,quantity,brand
-Jeans,L,Blue,F,29.99,5,Levi
-T-shirt,M,Red,M,15.99,10,Polo
-Sweater,M,Green,M,39.99,8,Ralph Lauren
-Dress,S,Black,F,49.99,3,Versace
+name,size,colour,gender,price,quantity,brand,image
+T-Shirt,M,Blue,M,15.99,10,Polo,images/image 16.png
+T-Shirt,L,White,F,29.99,5,Levi,images/image 17.png
+T-Shirt,M,Pink,F,39.99,8,Ralph Lauren,images/image 18.png
+T-Shirt,S,White,M,49.99,3,Versace,images/image 19.png
