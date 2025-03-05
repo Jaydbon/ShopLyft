@@ -119,6 +119,7 @@ body {
 .card img {
     height: 200px;
     width: 200px;
+    border-radius: 14px 14px 0 0;
 }
 .card .info *{
     padding: 0 10px;
