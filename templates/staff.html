@@ -48,9 +48,9 @@
         </div>
 
         <div class="display">
-            {% for item in cards%}
+        {% for item in cards%}
             <div class="card">
-                <img src="images/image 16.png" alt="shirt">
+                <img src="{{ url_for('static', filename= item['image']) }}" alt="shirt">
                 <div class="info">
                     <p class="title">{{item['name']}}</p>
                     <p class="stock">Stock: {{item['quantity']}}</p>

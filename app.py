@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from backend import ClothingCatalogue # changed from "from ClothingItem import ClothingCatalogue" -Jordyn
+from backEndShopLyft import ClothingCatalogue # changed from "from ClothingItem import ClothingCatalogue" -Jordyn
 
 app = Flask(__name__)
 
@@ -18,6 +18,12 @@ def staff():
 def admin():
     return render_template('admin.html', cards=info)
 
+
+@app.route('/delete/<item_id>', methods=['POST'])
+def deleteItem(item_id):
+    if item_id in info:
+        del info[item_id]
+    return render_template('admin.html', cards=info)
 
 if __name__ == '__main__':
     app.run(debug=True)
