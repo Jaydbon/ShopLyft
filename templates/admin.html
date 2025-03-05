@@ -50,24 +50,15 @@
         <div class="display">
         {% for item in cards%}
             <div class="card" id ="{{item['name']}}">
-                <form action="{{ url_for('delete', item_id=key) }}" method="post" style="display:inline;">
                     <img src="{{ url_for('static', filename= item['image']) }}" alt="shirt">
                     <div class="info">
                         <p class="title">{{item['name']}}</p>
                         <p class="stock">Stock: {{item['quantity']}}</p>
-                        <button onclick="deleteDiv('{{ item['image'] }}')">Delete</button>
                     </div>
-                </form>
             </div>
         {% endfor %}
         </div>
     </div>
 
-    <script>
-        function deleteDiv(divId) {
-            var div = document.getElementById(divId);
-            div.remove();
-        }
-    </script>
 </body>
 </html>

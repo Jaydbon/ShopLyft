@@ -39,7 +39,7 @@ class ClothingItem:
 
 # catalogue that stores clothing items
 class ClothingCatalogue:
-    def __init__(self, filename="catalogue.csv", image_folder="images"):
+    def __init__(self, filename="catalogue.csv", image_folder="static"):
         self.filename = filename
         self.image_folder = image_folder
         self.items = []

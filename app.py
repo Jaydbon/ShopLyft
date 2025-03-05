@@ -19,11 +19,11 @@ def admin():
     return render_template('admin.html', cards=info)
 
 
-@app.route('/delete/<item_id>', methods=['POST'])
-def deleteItem(item_id):
-    if item_id in info:
-        del info[item_id]
-    return render_template('admin.html', cards=info)
+# @app.route('/delete/<item_id>', methods=['POST'])
+# def deleteItem(item_id):
+#     if item_id in info:
+#         del info[item_id]
+#     return render_template('admin.html', cards=info)
 
 if __name__ == '__main__':
     app.run(debug=True)
