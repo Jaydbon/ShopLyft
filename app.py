@@ -3,17 +3,20 @@ from backend import ClothingCatalogue # changed from "from ClothingItem import C
 
 app = Flask(__name__)
 
+catalogue = ClothingCatalogue()
+catalogue.load_items()
+info = []
+for item in catalogue.items:
+    info.append(item.to_dict())
+
+
 @app.route('/')
 def staff():
-    catalogue = ClothingCatalogue()
-    catalogue.load_items()
-    return render_template('staff.html', cards = catalogue.items)
+    return render_template('staff.html', cards = info)
 
 @app.route('/admin')
 def admin():
-    catalogue = ClothingCatalogue()
-    catalogue.load_items()
-    return render_template('admin.html', cards=catalogue.items)
+    return render_template('admin.html', cards=info)
 
 
 if __name__ == '__main__':

@@ -47,149 +47,16 @@
             </ul>
 
         </div>
-        {%for card in cards%}
         <div class="display">
+        {% for item in cards%}
             <div class="card">
                 <img src="images/image 16.png" alt="shirt">
                 <div class="info">
-                    <p class="title">Blue Shirt</p>
-                    <p class="stock">Stock: ##</p>
+                    <p class="title">{{item['name']}}</p>
+                    <p class="stock">Stock: {{item['quantity']}}</p>
                 </div>
             </div>
-            <div class="card">
-                <img src="images/image 17.png" alt="shirt">
-                <div class="info">
-                    <p class="title">White Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 18.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Pink Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 19.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Purple Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 16.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Blue Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 17.png" alt="shirt">
-                <div class="info">
-                    <p class="title">White Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 18.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Pink Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 19.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Purple Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 16.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Blue Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 17.png" alt="shirt">
-                <div class="info">
-                    <p class="title">White Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 18.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Pink Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 19.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Purple Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 16.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Blue Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 17.png" alt="shirt">
-                <div class="info">
-                    <p class="title">White Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 18.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Pink Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 19.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Purple Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 16.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Blue Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 17.png" alt="shirt">
-                <div class="info">
-                    <p class="title">White Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 18.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Pink Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/image 19.png" alt="shirt">
-                <div class="info">
-                    <p class="title">Purple Shirt</p>
-                    <p class="stock">Stock: ##</p>
-                </div>
-            </div>
-        {% endfor%}  
+        {% endfor %}
         </div>
     </div>
 </body>
