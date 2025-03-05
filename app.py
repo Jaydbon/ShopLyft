@@ -22,10 +22,9 @@ def admin():
 @app.route('/delete/<item_id>', methods=['POST'])
 def deleteItem(item_id):
     global info
-    item_to_delete = None
-    for item in catalogue.items:
-        if item.name == item_id:
-            catalogue.remove_item(item)
+    for item in info:
+        if item['name'] == item_id:
+            catalogue.remove_item(item_id)
 
     # Remove the item from the info list
     info = [item for item in info if item['name'] != item_id]
