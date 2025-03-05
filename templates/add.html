@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='add.css')}}">
     <title>ShopLyft</title>
 </head>
 <body>
@@ -38,7 +38,12 @@
         <label for="brand">Brand:</label>
         <input type="text" id="brand" name="brand"><br><br>
 
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="image/*"><br><br>
+
         <button type="submit">Save</button>
     </form>
+
+    <a class="admin-redirect-button" href="/admin">Back to Catalogue</a>
 </body>
 </html>

@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from backEndShopLyft import ClothingItem, ClothingCatalogue # changed from "from ClothingItem import ClothingCatalogue" -Jordyn
+# changed so it imports ClothingItem as well -Wingfung
+# from werkzeug.utils import secure_filename # new
+# import os # new
 
 app = Flask(__name__)
 
@@ -9,6 +12,32 @@ info = []
 for item in catalogue.items:
     info.append(item.to_dict())
 
+# # Configure upload folder and allowed extensions
+# UPLOAD_FOLDER = 'static/images'
+# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# # Ensure the upload folder exists
+# os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# def allowed_file(filename):
+#     """Check if the file has an allowed extension."""
+#     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# def get_next_image_number():
+#     """Get the next available image number in the static/images folder."""
+#     existing_files = os.listdir(app.config['UPLOAD_FOLDER'])
+#     image_numbers = []
+#     for file in existing_files:
+#         if file.startswith("image ") and file.endswith(".png"):
+#             try:
+#                 number = int(file.split(" ")[1].split(".")[0])
+#                 image_numbers.append(number)
+#             except (IndexError, ValueError):
+#                 continue
+#     if image_numbers:
+#         return max(image_numbers) + 1
+#     return 1  # Start from 1 if no images exist
 
 @app.route('/')
 def staff():
@@ -46,12 +75,30 @@ def submit():
     price = float(request.form.get('price'))
     quantity = int(request.form.get('stock'))  # 'stock' in the form corresponds to 'quantity' in the backend
     brand = request.form.get('brand')
-    image = request.form.get('image', "")
+    image_path = ""
+
+    # # Handle image upload
+    # image_file = request.files.get('image')
+    # image_path = ""
+    # if image_file and allowed_file(image_file.filename):
+    #     # Get the next available image number
+    #     next_number = get_next_image_number()
+    #     # Create the new filename
+    #     filename = f"image {next_number}.png"
+    #     # Save the file to the upload folder
+    #     image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    #     image_file.save(image_path)
+    #     # Store the relative path for use in the HTML template
+    #     image_path = os.path.join('images', filename)
 
     # Create a ClothingItem object
-    new_item = ClothingItem(name, size, colour, gender, price, quantity, brand, image)
+    new_item = ClothingItem(name, size, colour, gender, price, quantity, brand, image_path)
 
+    print(new_item)
     result = catalogue.add_item(new_item)
+
+    # Update the info list
+    info.append(new_item.to_dict())
 
     return redirect(url_for('add'))
 
