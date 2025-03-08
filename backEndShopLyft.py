@@ -39,7 +39,7 @@ class ClothingItem:
 
 # catalogue that stores clothing items
 class ClothingCatalogue:
-    def __init__(self, filename="catalogue.csv", image_folder="static"):
+    def __init__(self, filename="catalogue.csv", image_folder="images"):
         self.filename = filename
         self.image_folder = image_folder
         self.items = []
@@ -116,7 +116,28 @@ class ClothingCatalogue:
             for item in self.items
         ]
 
-#user authentication
+    def get_filter_values(self, attribute):
+        # should return a list of unique values for the attribute you put in
+        if not hasattr(ClothingItem, attribute):
+            return {'message': "Invalid attribute."}
+
+        unique_values = list(set(getattr(item, attribute) for item in self.items))
+        return {'attribute': attribute, 'values': unique_values}
+
+    def get_filtered_items(self, filters):
+        
+        # should returns a list of items matching filters you put in
+        # example input: {"brand": "Levi", "size": "L"}
+
+        filtered_items = self.items
+
+        for key, value in filters.items():
+            if hasattr(ClothingItem, key):
+                filtered_items = [item for item in filtered_items if getattr(item, key) == value]
+
+        return {'filtered_items': [item.to_dict() for item in filtered_items]}
+
+# User and User Manager Classes
 class User:
     def __init__(self, username, password, role):
         self.username = username
@@ -167,3 +188,9 @@ class ClothingStore:
 
     def get_items_as_strings(self):
         return self.catalogue.get_items_as_strings()
+
+    def get_filter_values(self, attribute):
+        return self.catalogue.get_filter_values(attribute)
+
+    def get_filtered_items(self, filters):
+        return self.catalogue.get_filtered_items(filters)
