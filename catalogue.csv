@@ -1,5 +1,6 @@
 name,size,colour,gender,price,quantity,brand,image
-Polo T-shirt,M,Blue,M,15.99,10,Polo,images/image_1.png
-Jeans,L,White,F,29.99,5,Levi,images/image_2.png
-Luxury Tshirt,M,Pink,F,39.99,8,Ralph Lauren,images/image_3.png
-Purple Shirt,medium,Purple,male,10.0,23,Gucci,/images/image_4.png
+Polo T-shirt,medium,Blue,male,15.99,10,Polo,images/image_Polo T-shirt.png
+Jeans,L,White,female,29.99,5,Levi,images/image_Jeans.png
+Luxury Tshirt,medium,Pink,female,39.99,8,Ralph Lauren,images/image_Luxury Tshirt.png
+Purple Shirt,medium,Purple,male,10.0,23,Gucci,/images/image_Purple Shirt.png
+Rizzler Shirt,small,Black,male,50.0,23,Unknown,/images/image_Rizzler Shirt.png
