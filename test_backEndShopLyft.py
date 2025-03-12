@@ -1,6 +1,5 @@
 import unittest
 
-# Import the classes to test from your module.
 from backEndShopLyft import ClothingItem, User, UserManager
 
 ##############################
