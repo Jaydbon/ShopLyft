@@ -58,11 +58,12 @@ class ClothingCatalogue:
         return {'message': "Items loaded successfully.", 'items': [item.to_dict() for item in self.items]}
 
     def assign_images(self):
+        pass
         # assigns images based on item order if not set in the csv
-        image_files = sorted([f for f in os.listdir(self.image_folder) if f.endswith(".png")])
-        for i, item in enumerate(self.items):
-            if not item.image and i < len(image_files):
-                item.image = os.path.join(self.image_folder, image_files[i])
+        # image_files = sorted([f for f in os.listdir(self.image_folder) if f.endswith(".png")])
+        # for i, item in enumerate(self.items):
+        #     if not item.image and i < len(image_files):
+        #         item.image = os.path.join(self.image_folder, image_files[i])
 
     def save_items(self):
         with open(self.filename, mode='w', newline='') as file:
@@ -116,13 +117,23 @@ class ClothingCatalogue:
             for item in self.items
         ]
 
-    def get_filter_values(self, attribute):
-        # should return a list of unique values for the attribute you put in
-        if not hasattr(ClothingItem, attribute):
-            return {'message': "Invalid attribute."}
-
-        unique_values = list(set(getattr(item, attribute) for item in self.items))
+    def get_filter_values(self, attribute): # modified so that brands load correctly in Staff view
+        if not self.items:
+            print("Catalogue is empty")
+            return {'message': "No items in catalogue"}
+        if not hasattr(self.items[0], attribute):
+            print(f"Invalid attribute: {attribute}")
+            return {'message': "Invalid atrribute"}
+        unique_values = list(set(getattr(item, attribute, "").strip() for item in self.items if getattr(item, attribute, "").strip()))
+        # print(f"Unique values for {attribute}: {unique_values}")  # for debugging
         return {'attribute': attribute, 'values': unique_values}
+
+        # # should return a list of unique values for the attribute you put in
+        # if not hasattr(ClothingItem, attribute):
+        #     return {'message': "Invalid attribute."}
+
+        # unique_values = list(set(getattr(item, attribute) for item in self.items))
+        # return {'attribute': attribute, 'values': unique_values}
 
     def get_filtered_items(self, filters):
         

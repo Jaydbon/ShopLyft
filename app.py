@@ -24,6 +24,11 @@ def loadData():
     info = []
     for item in catalogue.items:
         info.append(item.to_dict())
+
+def loadBrands(): # retrives unique brands from catalogue
+    brands = catalogue.get_filter_values('brand')
+    # print(brands) # for debugging
+    return brands.get('values', [])
         
 def saveImages(image, itemName):
     try:
@@ -38,24 +43,24 @@ def saveImages(image, itemName):
 @app.route('/')
 def staff():
     loadData()
-    return render_template('staff.html', cards = info)
+    return render_template('staff.html', cards = info, brands=loadBrands())
 
 @app.route('/admin')
 def admin():
     loadData()
-    return render_template('admin.html', cards=info)
+    return render_template('admin.html', cards=info, brands=loadBrands())
 
 @app.route('/add')
 def add():
-    return render_template('add.html')
+    return render_template('add.html', brands=loadBrands())
 
 @app.route('/modify/<item_id>')
 def modify(item_id):
     for item in info:
         if item['name'] == item_id:
-            return render_template('modify.html', item=item)
+            return render_template('modify.html', item=item, brands=loadBrands())
     else:
-        return render_template('admin.html', cards=info)
+        return render_template('admin.html', cards=info, brands=loadBrands())
 
 @app.route('/delete/<item_id>', methods=['POST'])
 def deleteItem(item_id):

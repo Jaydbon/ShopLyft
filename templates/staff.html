@@ -22,9 +22,17 @@
             <h1>Filters</h1>
             <h2>Brand</h2>
             <ul>
-                <li><label for="Nike"><input type="checkbox" id="Nike" name="brand" value="Nike">Nike</label></li>
+                {% for brand in brands %}
+                    <li>
+                        <label for="{{ brand }}">
+                            <input type="checkbox" id="{{ brand }}" name="brand" value="{{ brand }}">
+                            {{ brand }}
+                        </label>
+                    </li>
+                {% endfor %}
+                <!-- <li><label for="Nike"><input type="checkbox" id="Nike" name="brand" value="Nike">Nike</label></li>
                 <li><label for="Old Navy"><input type="checkbox" id="Old Navy" name="brand" value="Old Navy">Old Navy</label></li>
-                <li><label for="Champion"><input type="checkbox" id="Champion" name="brand" value="Champion">Champion</label></li>
+                <li><label for="Champion"><input type="checkbox" id="Champion" name="brand" value="Champion">Champion</label></li> -->
             </ul>
             <h2>Size</h2>
             <ul>
