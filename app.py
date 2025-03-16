@@ -17,6 +17,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 info = []
+sortBy = 'name'
 
 def loadData():
     global info
@@ -25,10 +26,19 @@ def loadData():
     for item in catalogue.items:
         info.append(item.to_dict())
 
-def loadBrands(): # retrives unique brands from catalogue
+def loadDetails(): # retrives unique brands from catalogue
     brands = catalogue.get_filter_values('brand')
+    types = catalogue.get_filter_values('colour')
     # print(brands) # for debugging
-    return brands.get('values', [])
+    return brands.get('values', []), types.get('values', [])
+
+@app.route('/sorter', methods=['POST'])
+def sortItems():
+    global sortBy
+    sortBy = request.form['dropdown_value']
+    print(catalogue.sort_items(sortBy))
+    return redirect(url_for('staff'))
+
         
 def saveImages(image, itemName):
     try:
@@ -43,24 +53,26 @@ def saveImages(image, itemName):
 @app.route('/')
 def staff():
     loadData()
-    return render_template('staff.html', cards = info, brands=loadBrands())
+    brands, types = loadDetails()
+    return render_template('staff.html', cards = info, brands=brands, types=types, sortBy=sortBy)
 
 @app.route('/admin')
 def admin():
     loadData()
-    return render_template('admin.html', cards=info, brands=loadBrands())
+    brands, types = loadDetails()
+    return render_template('admin.html', cards=info, brands=brands, types=types, sortBy=sortBy)
 
 @app.route('/add')
 def add():
-    return render_template('add.html', brands=loadBrands())
+    return render_template('add.html')
 
 @app.route('/modify/<item_id>')
 def modify(item_id):
     for item in info:
         if item['name'] == item_id:
-            return render_template('modify.html', item=item, brands=loadBrands())
+            return render_template('modify.html', item=item)
     else:
-        return render_template('admin.html', cards=info, brands=loadBrands())
+        return render_template('admin.html', cards=info)
 
 @app.route('/delete/<item_id>', methods=['POST'])
 def deleteItem(item_id):

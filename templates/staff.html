@@ -20,6 +20,18 @@
     <div class="main">
         <div class="filter">
             <h1>Filters</h1>
+            <h2>Sort By</h2>
+            <form action="/sorter" method="POST">
+                <select id="dropdown" name="dropdown_value" onchange="this.form.submit()">
+                    <option value="name" {% if sortBy == 'name' %}selected{% endif %}>Name</option>
+                    <option value="size" {% if sortBy == 'size' %}selected{% endif %}>Size</option>
+                    <option value="colour" {% if sortBy == 'colour' %}selected{% endif %}>Colour</option>
+                    <option value="gender" {% if sortBy == 'gender' %}selected{% endif %}>Gender</option>
+                    <option value="price" {% if sortBy == 'price' %}selected{% endif %}>Price</option>
+                    <option value="quantity" {% if sortBy == 'quantity' %}selected{% endif %}>Quantity</option>
+                </select>
+            </form><br><br>
+
             <h2>Brand</h2>
             <ul>
                 {% for brand in brands %}
@@ -46,11 +58,16 @@
                 <li><label for="Female"><input type="checkbox" id="Female" name="gender" value="Female">Female</label></li>
                 <li><label for="Unisex"><input type="checkbox" id="Unisex" name="gender" value="Unisex">Unisex</label></li>
             </ul>
-            <h2>Type</h2>
+            <h2>Color</h2>
             <ul>
-                <li><label for="Pants"><input type="checkbox" id="Pants" name="type" value="Pants">Pants</label></li>
-                <li><label for="Shirt"><input type="checkbox" id="Shirt" name="type" value="Shirt">Shirt</label></li>
-                <li><label for="Socks"><input type="checkbox" id="Socks" name="type" value="Socks">Socks</label></li>
+                {% for type in types %}
+                    <li>
+                        <label for="{{ type }}">
+                            <input type="checkbox" id="{{ type }}" name="type" value="{{ type }}">
+                            {{ type }}
+                        </label>
+                    </li>
+                {% endfor %}
             </ul>
 
         </div>
