@@ -16,6 +16,8 @@ The following libraries and modules are used in the project:
 - **os**: Standard Python library used for interacting with the operating system (*e.g, handling file paths and directories*)
 - **csv**: Standard Python library used to read from and write to CSV files that store clothing item data.
 - **getpass**: Standard Python library used to securely prompt users for passwords.
+- **subprocess**: Standard Python library used to execute shell commands from within Python. Used in this project to run commands like activating virtual environments, installing dependencies, starting the Flask application, and running tests.
+- **sys**: Standard Python library used for interacting with the Python runtime environment. In this project it's used to handle command-line arguments and exit the script when necessary.
 
 ## Installing Dependencies
 To install the required dependencies, follow these steps:
