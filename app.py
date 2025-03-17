@@ -19,18 +19,15 @@ def allowed_file(filename):
 info = []
 sortBy = 'name'
 
-def loadData():
+def loadCatalogueData():
     global info
     catalogue.load_items()
-    info = []
-    for item in catalogue.items:
-        info.append(item.to_dict())
-
-def loadDetails(): # retrives unique brands from catalogue
-    brands = catalogue.get_filter_values('brand')
-    types = catalogue.get_filter_values('colour')
-    # print(brands) # for debugging
-    return brands.get('values', []), types.get('values', [])
+    info = [item.to_dict() for item in catalogue.items]
+    
+    brands = catalogue.get_filter_values('brand').get('values', [])
+    types = catalogue.get_filter_values('colour').get('values', [])
+    
+    return brands, types
 
 @app.route('/sorter', methods=['POST'])
 def sortItems():
@@ -52,14 +49,12 @@ def saveImages(image, itemName):
 
 @app.route('/')
 def staff():
-    loadData()
-    brands, types = loadDetails()
+    brands, types = loadCatalogueData()
     return render_template('staff.html', cards = info, brands=brands, types=types, sortBy=sortBy)
 
 @app.route('/admin')
 def admin():
-    loadData()
-    brands, types = loadDetails()
+    brands, types = loadCatalogueData()
     return render_template('admin.html', cards=info, brands=brands, types=types, sortBy=sortBy)
 
 @app.route('/add')
