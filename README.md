@@ -37,6 +37,24 @@ To install the required dependencies, follow these steps:
     ```bash
     cd ShopLyft
     ```
+    - Set up virtual environment:
+    ```bash
+    python -m venv venv
+    ```
+    - Activate virtual environment:
+      
+        - **For macOS/Linux:**
+          ```bash
+          source venv/bin/activate
+          ```
+        - **For Windows:**
+          ```bash
+          venv\Scripts\activate
+          ```
+    - Install required packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
     - Run the Flask application:
     ```bash
     python app.py
