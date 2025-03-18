@@ -1,6 +1,6 @@
 import unittest
 
-from backEndShopLyft import ClothingItem, User, UserManager
+from backEndShopLyft import ClothingItem, User, UserManager, ClothingCatalogue
 
 ##############################
 # Tests for ClothingItem
@@ -72,6 +72,25 @@ class TestUserManager(unittest.TestCase):
     def test_login_failure(self):
         result = self.user_manager.login("wronguser", "wrongpass")
         self.assertIn("Invalid credentials", result['message'])
+
+##############################
+# Tests for ClothingCatalogue
+##############################
+class TestClothingCatalogue(unittest.TestCase):
+    def setUp(self):
+        self.catalogue = ClothingCatalogue()
+        self.catalogue.items = [
+            ClothingItem("TShirt", "M", "Blue", "Unisex", 19.99, 10, "Nike"),
+            ClothingItem("Jeans", "L", "Black", "Male", 49.99, 5, "Levi's"),
+            ClothingItem("Jacket", "L", "Dark Blue", "Female", 59.99, 7, "Adidas"),
+        ]
+    
+    def test_find_related_items(self):
+        # Expectation is that searching for "blue" will return two items:
+        # one with color "Blue" and one with color "Dark Blue".
+        # Since the functionality isn't implemented, the test will fail.
+        result = self.catalogue.find_related_items("blue")
+        self.assertEqual(len(result), 2, "Expected 2 related items for search term 'blue'")
 
 if __name__ == '__main__':
     unittest.main()
