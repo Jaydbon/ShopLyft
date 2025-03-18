@@ -137,15 +137,29 @@ class ClothingCatalogue:
 
     def get_filtered_items(self, filters):
         
-        # should returns a list of items matching filters you put in
-        # example input: {"brand": "Levi", "size": "L"}
+        #uhh for this make sure ur input is like: {"brand": ["Gucci", "polo"], "size": ""} for example
 
+        if not self.items:
+            return {'message': "No items in catalogue.", 'filtered_items': []}
+    
         filtered_items = self.items
-
-        for key, value in filters.items():
-            if hasattr(ClothingItem, key):
-                filtered_items = [item for item in filtered_items if getattr(item, key) == value]
-
+        
+        for key, values in filters.items():
+            if not values:
+                continue
+            
+            if not isinstance(values, list):
+                values = [values]
+            
+            #makes everything lowercase 
+            values = [str(value).strip().lower() for value in values if value and str(value).strip()]
+            
+            if hasattr(self.items[0], key):  #checks if the attribute exists in the first item
+                filtered_items = [
+                    item for item in filtered_items
+                    if getattr(item, key, "").strip().lower() in values
+                ]
+        
         return {'filtered_items': [item.to_dict() for item in filtered_items]}
 
 # User and User Manager Classes
