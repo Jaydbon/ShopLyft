@@ -32,20 +32,26 @@
                 </select>
             </form><br><br>
 
-            <h2>Brand</h2>
-            <ul>
-                {% for brand in brands %}
-                    <li>
+
+            <form action="/filters" method="POST">
+                    <h2>Brand</h2>
+                    <ul>
+                      {% for brand in brands %}
+                      <li>
                         <label for="{{ brand }}">
-                            <input type="checkbox" id="{{ brand }}" name="brand" value="{{ brand }}">
+                          <input 
+                            type="checkbox" 
+                            id="{{ brand }}" 
+                            name="brand" 
+                            value="{{ brand }}" 
+                            onchange="this.form.submit()" 
+                            {% if brand in activeFilters['brand'] %}checked{% endif %}>
                             {{ brand }}
                         </label>
-                    </li>
-                {% endfor %}
-                <!-- <li><label for="Nike"><input type="checkbox" id="Nike" name="brand" value="Nike">Nike</label></li>
-                <li><label for="Old Navy"><input type="checkbox" id="Old Navy" name="brand" value="Old Navy">Old Navy</label></li>
-                <li><label for="Champion"><input type="checkbox" id="Champion" name="brand" value="Champion">Champion</label></li> -->
-            </ul>
+                      </li>
+                      {% endfor %}
+                    </ul>
+            </form>
             <h2>Size</h2>
             <ul>
                 <li><label for="Small"><input type="checkbox" id="Small" name="size" value="Small">Small</label></li>
@@ -63,8 +69,14 @@
                 {% for type in types %}
                     <li>
                         <label for="{{ type }}">
-                            <input type="checkbox" id="{{ type }}" name="type" value="{{ type }}">
-                            {{ type }}
+                            <input 
+                                type="checkbox"
+                                id="{{ type }}"
+                                name="type"
+                                value="{{ type }}"
+                                onchange="this.form.submit()"
+                                {% if type in activeFilters['types'] %}checked{% endif %}>
+                                {{ type }}
                         </label>
                     </li>
                 {% endfor %}

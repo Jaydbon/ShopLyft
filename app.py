@@ -18,22 +18,34 @@ def allowed_file(filename):
 
 info = []
 sortBy = 'name'
+activeFilters = {"brand":[]}
 
-def loadCatalogueData():
+
+@app.route('/filters', methods=['GET', 'POST'])
+def add_Filters():
+    global activeFilters
+    activeFilters["brand"] = request.form.getlist('brand') if request.method == 'POST' else []
+    return redirect(url_for('staff'))
+
+def set_Filters():
+    newInfo = catalogue.get_filtered_items(activeFilters)['filtered_items']
+    return newInfo
+    
+def loadInfo():
     global info
     catalogue.load_items()
     info = [item.to_dict() for item in catalogue.items]
-    
-    brands = catalogue.get_filter_values('brand').get('values', [])
-    types = catalogue.get_filter_values('colour').get('values', [])
-    
-    return brands, types
+    return info
+
+def loadFilterOptions(option):
+    options = catalogue.get_filter_values(option).get('values', [])
+    return options
+
 
 @app.route('/sorter', methods=['POST'])
 def sortItems():
     global sortBy
     sortBy = request.form['dropdown_value']
-    print(catalogue.sort_items(sortBy))
     return redirect(url_for('staff'))
 
         
@@ -49,13 +61,14 @@ def saveImages(image, itemName):
 
 @app.route('/')
 def staff():
-    brands, types = loadCatalogueData()
-    return render_template('staff.html', cards = info, brands=brands, types=types, sortBy=sortBy)
+    info = loadInfo()
+    info = set_Filters()
+    return render_template('staff.html', cards=info, brands=loadFilterOptions('brand'), types=loadFilterOptions('colour'), sortBy=sortBy, activeFilters=activeFilters)
 
 @app.route('/admin')
 def admin():
-    brands, types = loadCatalogueData()
-    return render_template('admin.html', cards=info, brands=brands, types=types, sortBy=sortBy)
+    info = loadInfo()
+    return render_template('admin.html', cards=info, brands=loadFilterOptions('brand'), types=loadFilterOptions('colour'), sortBy=sortBy)
 
 @app.route('/add')
 def add():
