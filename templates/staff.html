@@ -51,18 +51,17 @@
                       </li>
                       {% endfor %}
                     </ul>
-            </form>
             <h2>Size</h2>
             <ul>
-                <li><label for="Small"><input type="checkbox" id="Small" name="size" value="Small">Small</label></li>
-                <li><label for="Medium"><input type="checkbox" id="Medium" name="size" value="Medium">Medium</label></li>
-                <li><label for="Large"><input type="checkbox" id="Large" name="size" value="Large">Large</label></li>
+                    <li><label for="Small"><input type="checkbox" id="small" name="size" value="Small" onchange="this.form.submit()"  {% if 'Small' in activeFilters['size'] %}checked{% endif %}>Small</label></li>
+                    <li><label for="Medium"><input type="checkbox" id="medium" name="size" value="Medium"  onchange="this.form.submit()" {% if 'Medium' in activeFilters['size'] %}checked{% endif %}>Medium</label></li>
+                    <li><label for="Large"><input type="checkbox" id="large" name="size" value="Large" onchange="this.form.submit()"  {% if 'Large' in activeFilters['size'] %}checked{% endif %}>Large</label></li>
             </ul>
             <h2>Gender</h2>
             <ul>
-                <li><label for="Male"><input type="checkbox" id="Male" name="gender" value="Male">Male</label></li>
-                <li><label for="Female"><input type="checkbox" id="Female" name="gender" value="Female">Female</label></li>
-                <li><label for="Unisex"><input type="checkbox" id="Unisex" name="gender" value="Unisex">Unisex</label></li>
+                    <li><label for="Male"><input type="checkbox" id="Male" name="gender" value="Male" onchange="this.form.submit()" {% if 'Male' in activeFilters['gender'] %}checked{% endif %}>Male</label></li>
+                    <li><label for="Female"><input type="checkbox" id="Female" name="gender" value="Female" onchange="this.form.submit()" {% if 'Female' in activeFilters['gender'] %}checked{% endif %}>Female</label></li>
+                    <li><label for="Unisex"><input type="checkbox" id="Unisex" name="gender" value="Unisex" onchange="this.form.submit()" {% if 'Unisex' in activeFilters['gender'] %}checked{% endif %}>Unisex</label></li>
             </ul>
             <h2>Color</h2>
             <ul>
@@ -72,15 +71,16 @@
                             <input 
                                 type="checkbox"
                                 id="{{ type }}"
-                                name="type"
+                                name="colour"
                                 value="{{ type }}"
                                 onchange="this.form.submit()"
-                                {% if type in activeFilters['types'] %}checked{% endif %}>
+                                {% if type in activeFilters["colour"] %}checked{% endif %}>
                                 {{ type }}
                         </label>
                     </li>
                 {% endfor %}
             </ul>
+            </form>
 
         </div>
 

@@ -25,6 +25,10 @@ activeFilters = {"brand":[]}
 def add_Filters():
     global activeFilters
     activeFilters["brand"] = request.form.getlist('brand') if request.method == 'POST' else []
+    activeFilters["size"] = request.form.getlist('size') if request.method == 'POST' else []
+    activeFilters["gender"] = request.form.getlist('gender') if request.method == 'POST' else []
+    activeFilters["colour"] = request.form.getlist('colour') if request.method == 'POST' else []
+    print(activeFilters)
     return redirect(url_for('staff'))
 
 def set_Filters():
@@ -46,6 +50,7 @@ def loadFilterOptions(option):
 def sortItems():
     global sortBy
     sortBy = request.form['dropdown_value']
+    catalogue.sort_items(sortBy)
     return redirect(url_for('staff'))
 
         
