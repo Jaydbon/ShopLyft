@@ -79,7 +79,7 @@ To install the required dependencies, follow these steps:
     ```bash
     python build.py run
     ```
-
+    - Open the provided URL in your web browser to access the website (you may also run ```python build.py``` to check all commands).
 ## Features
 ### Staff Functions (Available to All Users)
 1. **Staff Page**:
