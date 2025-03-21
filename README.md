@@ -62,7 +62,24 @@ To install the required dependencies, follow these steps:
     python app.py
     ```
     - Open the provided URL in your web browser to access the website.
-
+3. **Run the Application (Build Version)**:
+    - Navigate into the project directory:
+    ```bash
+    cd ShopLyft
+    ```
+    - Set up virtual environment:
+    ```bash
+    python -m venv venv
+    ```
+    - Install required packages:
+    ```bash
+    python build.py install
+    ```
+    - Run the Flask application:
+    ```bash
+    python build.py run
+    ```
+    - Open the provided URL in your web browser to access the website (you may also run ```python build.py``` to check all commands).
 ## Features
 ### Staff Functions (Available to All Users)
 1. **Staff Page**:
