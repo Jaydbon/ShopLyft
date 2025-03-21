@@ -53,15 +53,17 @@ def clean(remove_images=False):
     
     # Optionally remove PNG files in static/images (but please don't do this for the love of god)
     if remove_images and os.path.exists(os.path.join(STATIC_DIR, "images")):
+        print("Removing images...")
         for file in os.listdir(os.path.join(STATIC_DIR, "images")):
             if file.endswith(".png"):
                 os.remove(os.path.join(STATIC_DIR, "images", file))
+        print("Images removed.")
     
     # Remove requirements.txt
     if os.path.exists(REQUIREMENTS):
         os.remove(REQUIREMENTS)
 
-def freeze():
+def freeze(): 
     """Generate requirements.txt."""
     print("Generating requirements.txt...")
     if os.name == "nt":  # Windows
@@ -84,7 +86,7 @@ def test():
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python build.py <command>")
-        print("Commands: install, run, clean, freeze, test")
+        print("Commands: install, run, clean (or clean --remove-images), freeze, test")
         sys.exit(1)
 
     command = sys.argv[1]
