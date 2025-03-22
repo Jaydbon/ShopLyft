@@ -166,6 +166,52 @@ class ClothingCatalogue:
         # Placeholder (specifically for the failed unittest)
         return []
 
+    def filter_by_price(self, lower_bound, upper_bound):
+
+        """
+        example usage:
+        # Filtering by price
+            
+            lower_bound = 10.0
+            upper_bound = 20.0
+            result = store.filter_by_price(lower_bound, upper_bound)
+            
+            print("Items within price range:")
+            for item in result['items_within_range']:
+                print(item)
+            
+            print("Items below price range:")
+            for item in result['items_below_range']:
+                print(item)
+            
+            print("Items above price range:")
+            for item in result['items_above_range']:
+                print(item)
+
+            call whichever one of the three dictionaries you want to get the results
+        """
+        
+        if not self.items:
+            return {'message': "No items in catalogue.", 'items_within_range': [], 'items_below_range': [], 'items_above_range': []}
+        
+        items_within_range = []
+        items_below_range = []
+        items_above_range = []
+        
+        for item in self.items:
+            if lower_bound <= item.price <= upper_bound:
+                items_within_range.append(item)
+            elif item.price < lower_bound:
+                items_below_range.append(item)
+            else:
+                items_above_range.append(item)
+        
+        return {
+            'items_within_range': [item.to_dict() for item in items_within_range],
+            'items_below_range': [item.to_dict() for item in items_below_range],
+            'items_above_range': [item.to_dict() for item in items_above_range]
+        }
+
 # User and User Manager Classes
 class User:
     def __init__(self, username, password, role):
@@ -223,3 +269,6 @@ class ClothingStore:
 
     def get_filtered_items(self, filters):
         return self.catalogue.get_filtered_items(filters)
+    
+    def filter_by_price(self, lower_bound, upper_bound):
+        return self.catalogue.filter_by_price(lower_bound, upper_bound)
