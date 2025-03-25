@@ -19,6 +19,7 @@ info = []
 sortBy = 'name'
 activeFilters = {"brand":[]}
 searchStr = ""
+previousPage =""
 
 
 @app.route('/search', methods=["POST"])
@@ -26,7 +27,7 @@ def search():
     global searchStr
     searchStr = request.form['search']
     print(searchStr)
-    return redirect(url_for('staff'))
+    return redirect(url_for(previousPage))
 
 def setSearch():
     if searchStr != "" and searchStr != "search":
@@ -45,14 +46,14 @@ def add_Filters():
     activeFilters["gender"] = request.form.getlist('gender') if request.method == 'POST' else []
     activeFilters["colour"] = request.form.getlist('colour') if request.method == 'POST' else []
     print(activeFilters)
-    return redirect(url_for('staff'))
+    return redirect(url_for(previousPage))
 
 def set_Filters():
-    newInfo = catalogue.get_filtered_items(activeFilters)['filtered_items']
-    return newInfo
+    return catalogue.get_filtered_items(activeFilters)['filtered_items']
     
 def loadInfo():
     global info
+    sortItems()
     catalogue.load_items()
     info = [item.to_dict() for item in catalogue.items]
     return info
@@ -63,12 +64,14 @@ def loadFilterOptions(option):
 
 
 @app.route('/sorter', methods=['POST'])
-def sortItems():
+def sorter():
     global sortBy
     sortBy = request.form['dropdown_value']
     catalogue.sort_items(sortBy)
-    return redirect(url_for('staff'))
+    return redirect(url_for(previousPage))
 
+def sortItems():
+    catalogue.sort_items(sortBy)
         
 def saveImages(image, itemName):
     try:
@@ -82,15 +85,21 @@ def saveImages(image, itemName):
 
 @app.route('/')
 def staff():
+    global info, previousPage
     info = loadInfo()
     info = set_Filters()
     info = setSearch()
+    previousPage = 'staff'
     return render_template('staff.html', cards=info, brands=loadFilterOptions('brand'), types=loadFilterOptions('colour'), sortBy=sortBy, activeFilters=activeFilters)
 
 @app.route('/admin')
 def admin():
+    global info, previousPage
     info = loadInfo()
     info = set_Filters()
+    info = setSearch()
+    previousPage = 'admin'
+    print(f'load search: {info}')
     return render_template('admin.html', cards=info, brands=loadFilterOptions('brand'), types=loadFilterOptions('colour'), sortBy=sortBy, activeFilters=activeFilters)
 
 @app.route('/add')
