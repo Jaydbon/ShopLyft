@@ -11,9 +11,10 @@
         <a href="">Shoplyft</a>
         <div class="search">
             <svg xmlns="http://www.w3.org/2000/svg" class="svg_icon bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path></svg>
-            <input class="input" type="text" placeholder="Search">    
+            <form action="/search" method="POST">
+                <input class="input" type="text" name="search" placeholder="Search" value={{ request.form['search'] }}>   
+            </form> 
         </div>
-        
         <a href="/">Staff</a>
     </div>
 
@@ -21,45 +22,85 @@
 
         <div class="filter">
             <h1>Filters</h1>
-            <h2>Brand</h2>
-            <ul>
-                <li><label for="Nike"><input type="checkbox" id="Nike" name="brand" value="Nike">Nike</label></li>
-                <li><label for="Old Navy"><input type="checkbox" id="Old Navy" name="brand" value="Old Navy">Old Navy</label></li>
-                <li><label for="Champion"><input type="checkbox" id="Champion" name="brand" value="Champion">Champion</label></li>
-            </ul>
+            <h2>Sort By</h2>
+            <form action="/sorter" method="POST">
+                <select id="dropdown" name="dropdown_value" onchange="this.form.submit()">
+                    <option value="name" {% if sortBy == 'name' %}selected{% endif %}>Name</option>
+                    <option value="size" {% if sortBy == 'size' %}selected{% endif %}>Size</option>
+                    <option value="colour" {% if sortBy == 'colour' %}selected{% endif %}>Colour</option>
+                    <option value="gender" {% if sortBy == 'gender' %}selected{% endif %}>Gender</option>
+                    <option value="price" {% if sortBy == 'price' %}selected{% endif %}>Price</option>
+                    <option value="quantity" {% if sortBy == 'quantity' %}selected{% endif %}>Quantity</option>
+                </select>
+            </form><br><br>
+
+
+            <form action="/filters" method="POST">
+                    <h2>Brand</h2>
+                    <ul>
+                      {% for brand in brands %}
+                      <li>
+                        <label for="{{ brand }}">
+                          <input 
+                            type="checkbox" 
+                            id="{{ brand }}" 
+                            name="brand" 
+                            value="{{ brand }}" 
+                            onchange="this.form.submit()" 
+                            {% if brand in activeFilters['brand'] %}checked{% endif %}>
+                            {{ brand }}
+                        </label>
+                      </li>
+                      {% endfor %}
+                    </ul>
+
+
             <h2>Size</h2>
             <ul>
-                <li><label for="Small"><input type="checkbox" id="Small" name="size" value="Small">Small</label></li>
-                <li><label for="Medium"><input type="checkbox" id="Medium" name="size" value="Medium">Medium</label></li>
-                <li><label for="Large"><input type="checkbox" id="Large" name="size" value="Large">Large</label></li>
+                    <li><label for="Small"><input type="checkbox" id="small" name="size" value="Small" onchange="this.form.submit()"  {% if 'Small' in activeFilters['size'] %}checked{% endif %}>Small</label></li>
+                    <li><label for="Medium"><input type="checkbox" id="medium" name="size" value="Medium"  onchange="this.form.submit()" {% if 'Medium' in activeFilters['size'] %}checked{% endif %}>Medium</label></li>
+                    <li><label for="Large"><input type="checkbox" id="large" name="size" value="Large" onchange="this.form.submit()"  {% if 'Large' in activeFilters['size'] %}checked{% endif %}>Large</label></li>
             </ul>
+
+
             <h2>Gender</h2>
             <ul>
-                <li><label for="Male"><input type="checkbox" id="Male" name="gender" value="Male">Male</label></li>
-                <li><label for="Female"><input type="checkbox" id="Female" name="gender" value="Female">Female</label></li>
-                <li><label for="Unisex"><input type="checkbox" id="Unisex" name="gender" value="Unisex">Unisex</label></li>
+                    <li><label for="Male"><input type="checkbox" id="Male" name="gender" value="Male" onchange="this.form.submit()" {% if 'Male' in activeFilters['gender'] %}checked{% endif %}>Male</label></li>
+                    <li><label for="Female"><input type="checkbox" id="Female" name="gender" value="Female" onchange="this.form.submit()" {% if 'Female' in activeFilters['gender'] %}checked{% endif %}>Female</label></li>
+                    <li><label for="Unisex"><input type="checkbox" id="Unisex" name="gender" value="Unisex" onchange="this.form.submit()" {% if 'Unisex' in activeFilters['gender'] %}checked{% endif %}>Unisex</label></li>
             </ul>
-            <h2>Type</h2>
-            <ul>
-                <li><label for="Pants"><input type="checkbox" id="Pants" name="type" value="Pants">Pants</label></li>
-                <li><label for="Shirt"><input type="checkbox" id="Shirt" name="type" value="Shirt">Shirt</label></li>
-                <li><label for="Socks"><input type="checkbox" id="Socks" name="type" value="Socks">Socks</label></li>
-            </ul>
-            <a class="add-button-redirect" href="/add">Add an Item</a>
 
+
+            <h2>Color</h2>
+            <ul>
+                {% for type in types %}
+                    <li><label for="{{ type }}"><input 
+                            type="checkbox"
+                            id="{{ type }}"
+                            name="colour"
+                            value="{{ type }}"
+                            onchange="this.form.submit()"
+                            {% if type in activeFilters["colour"] %}checked{% endif %}>
+                            {{ type }}
+                    </label></li>
+                {% endfor %}
+            </ul>
+            </form>
+            <a class="add-button-redirect" href="/add">Add an Item</a>
         </div>
         <div class="display">
-        {% for item in cards%}
-            <div class="card" id ="{{item['name']}}">
-                <img src="{{ url_for('static', filename= item['image']) }}" alt="shirt">
-                <div class="info">
-                    <p class="title">{{item['name']}}</p>
-                    <p class="stock">Stock: {{item['quantity']}}</p>
-                    <a class="modify-button-redirect" href="/modify/{{item['name']}}">Modify</a>
+            {% for item in cards%}
+                <div class="card" id ="{{item['name']}}">
+                    <img src="{{ url_for('static', filename= item['image']) }}" alt="shirt">
+                    <div class="info">
+                        <p class="title">{{item['name']}}</p>
+                        <p class="stock">Stock: {{item['quantity']}}</p>
+                        <a class="modify-button-redirect" href="/modify/{{item['name']}}">Modify</a>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
         </div>
+    </div>
     </div>
 
 </body>

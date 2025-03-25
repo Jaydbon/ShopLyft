@@ -166,6 +166,91 @@ class ClothingCatalogue:
         # Placeholder (specifically for the failed unittest)
         return []
 
+    def filter_by_price(self, lower_bound, upper_bound):
+
+        """
+        example usage:
+        # Filtering by price
+            
+            lower_bound = 10.0
+            upper_bound = 20.0
+            result = store.filter_by_price(lower_bound, upper_bound)
+            
+            print("Items within price range:")
+            for item in result['items_within_range']:
+                print(item)
+            
+            print("Items below price range:")
+            for item in result['items_below_range']:
+                print(item)
+            
+            print("Items above price range:")
+            for item in result['items_above_range']:
+                print(item)
+
+            call whichever one of the three dictionaries you want to get the results
+        """
+        
+        if not self.items:
+            return {'message': "No items in catalogue.", 'items_within_range': [], 'items_below_range': [], 'items_above_range': []}
+        
+        items_within_range = []
+        items_below_range = []
+        items_above_range = []
+        
+        for item in self.items:
+            if lower_bound <= item.price <= upper_bound:
+                items_within_range.append(item)
+            elif item.price < lower_bound:
+                items_below_range.append(item)
+            else:
+                items_above_range.append(item)
+        
+        return {
+            'items_within_range': [item.to_dict() for item in items_within_range],
+            'items_below_range': [item.to_dict() for item in items_below_range],
+            'items_above_range': [item.to_dict() for item in items_above_range]
+        }
+
+    def search_items(self, search_string):
+
+        """
+        example usage:
+
+        results = store.search_items("Sus")
+    
+        for item in results['matching_items']:
+            print(item)
+
+        should list the item that has "Sus" as one of its attributes, works for any string i think
+
+        """
+       
+        if not search_string or not isinstance(search_string, str):
+            return {'message': "Invalid search string.", 'matching_items': []}
+        
+        if not self.items:
+            return {'message': "No items in catalogue.", 'matching_items': []}
+        
+        search_lower = search_string.strip().lower()
+        matching_items = []
+        
+        for item in self.items:
+            if (search_lower in item.name.lower() or
+                search_lower in item.size.lower() or
+                search_lower in item.colour.lower() or
+                search_lower in item.gender.lower() or
+                search_lower in item.brand.lower() or
+                search_lower in item.image.lower() or
+                search_lower in str(item.price).lower() or
+                search_lower in str(item.quantity).lower()):
+                matching_items.append(item)
+        
+        return {
+            'message': f"Found {len(matching_items)} matching items.",
+            'matching_items': [item.to_dict() for item in matching_items]
+        }
+
 # User and User Manager Classes
 class User:
     def __init__(self, username, password, role):
@@ -223,3 +308,9 @@ class ClothingStore:
 
     def get_filtered_items(self, filters):
         return self.catalogue.get_filtered_items(filters)
+    
+    def filter_by_price(self, lower_bound, upper_bound):
+        return self.catalogue.filter_by_price(lower_bound, upper_bound)
+
+    def search_items(self, search_string):
+        return self.catalogue.search_items(search_string)

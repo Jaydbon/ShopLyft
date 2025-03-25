@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from backEndShopLyft import ClothingItem, ClothingCatalogue # changed from "from ClothingItem import ClothingCatalogue" -Jordyn
 # changed so it imports ClothingItem as well -Wingfung
 import os # new
+import csv
 
 app = Flask(__name__)
 
@@ -13,12 +14,51 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def allowed_file(filename):
-    """Check if the file has an allowed extension."""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 info = []
 sortBy = 'name'
 activeFilters = {"brand":[]}
+searchStr = ""
+previousPage =""
+
+def loadUsers():
+    users = []
+    with open('adminLogins.csv', mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                users.append(row)
+    return users
+
+@app.route('/login', methods=['POST', 'GET'])
+def login(): 
+    return render_template('login.html')
+
+@app.route('/logged', methods=['POST', 'GET'])
+def logged():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    users = loadUsers()
+    for log in users:
+        if username == log['username'] and password == log['password']:
+            return redirect(url_for('admin'))
+    return redirect(url_for('login'))
+
+
+@app.route('/search', methods=["POST"])
+def search():
+    global searchStr
+    searchStr = request.form['search']
+    print(searchStr)
+    return redirect(url_for(previousPage))
+
+def setSearch():
+    if searchStr != "" and searchStr != "search":
+        print(catalogue.search_items(searchStr))
+        return(catalogue.search_items(searchStr)['matching_items'])
+    else:
+        return info
+    
 
 
 @app.route('/filters', methods=['GET', 'POST'])
@@ -29,14 +69,14 @@ def add_Filters():
     activeFilters["gender"] = request.form.getlist('gender') if request.method == 'POST' else []
     activeFilters["colour"] = request.form.getlist('colour') if request.method == 'POST' else []
     print(activeFilters)
-    return redirect(url_for('staff'))
+    return redirect(url_for(previousPage))
 
 def set_Filters():
-    newInfo = catalogue.get_filtered_items(activeFilters)['filtered_items']
-    return newInfo
+    return catalogue.get_filtered_items(activeFilters)['filtered_items']
     
 def loadInfo():
     global info
+    sortItems()
     catalogue.load_items()
     info = [item.to_dict() for item in catalogue.items]
     return info
@@ -47,12 +87,14 @@ def loadFilterOptions(option):
 
 
 @app.route('/sorter', methods=['POST'])
-def sortItems():
+def sorter():
     global sortBy
     sortBy = request.form['dropdown_value']
     catalogue.sort_items(sortBy)
-    return redirect(url_for('staff'))
+    return redirect(url_for(previousPage))
 
+def sortItems():
+    catalogue.sort_items(sortBy)
         
 def saveImages(image, itemName):
     try:
@@ -66,14 +108,22 @@ def saveImages(image, itemName):
 
 @app.route('/')
 def staff():
+    global info, previousPage
     info = loadInfo()
     info = set_Filters()
+    info = setSearch()
+    previousPage = 'staff'
     return render_template('staff.html', cards=info, brands=loadFilterOptions('brand'), types=loadFilterOptions('colour'), sortBy=sortBy, activeFilters=activeFilters)
 
 @app.route('/admin')
 def admin():
+    global info, previousPage
     info = loadInfo()
-    return render_template('admin.html', cards=info, brands=loadFilterOptions('brand'), types=loadFilterOptions('colour'), sortBy=sortBy)
+    info = set_Filters()
+    info = setSearch()
+    previousPage = 'admin'
+    print(f'load search: {info}')
+    return render_template('admin.html', cards=info, brands=loadFilterOptions('brand'), types=loadFilterOptions('colour'), sortBy=sortBy, activeFilters=activeFilters)
 
 @app.route('/add')
 def add():
@@ -132,15 +182,16 @@ def updateItem(item_id):
             quantity = int(request.form.get('stock'))  # 'stock' in the form corresponds to 'quantity' in the backend
             brand = request.form.get('brand')
             image = request.files['image']
+            if image != "":
+                saveImages(image, name)
+            # image_filename = f"image_{item['name']}.png"
+            # image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
+            # image_path = image_path.replace('\\', '/')
             
-            image_filename = f"image_{item['name']}.png"
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
-            image_path = image_path.replace('\\', '/')
-            
-            try:
-                os.remove(image_path)
-            except Exception as e:
-                print(f'Error has occured {e}')
+            # try:
+            #     os.remove(image_path)
+            # except Exception as e:
+            #     print(f'Error has occured {e}')
         
             saveImages(image, name)
             
