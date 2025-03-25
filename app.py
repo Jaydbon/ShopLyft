@@ -68,6 +68,9 @@ def add_Filters():
     activeFilters["size"] = request.form.getlist('size') if request.method == 'POST' else []
     activeFilters["gender"] = request.form.getlist('gender') if request.method == 'POST' else []
     activeFilters["colour"] = request.form.getlist('colour') if request.method == 'POST' else []
+    low = request.form.getlist('low')
+    high = request.form.getlist('high')
+    activeFilters["price"] = [low,high]
     print(activeFilters)
     return redirect(url_for(previousPage))
 
