@@ -10,12 +10,12 @@
 <body>
     <div class="navbar">
         <a href="">Shoplyft</a>
-        <form action="/search" method="POST">
             <div class="search">
                 <svg xmlns="http://www.w3.org/2000/svg" class="svg_icon bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path></svg>
-                <input class="input" type="text" name="title" placeholder="Search" value={{ request.form['title'] }}>    
+                <form action="/search" method="POST">
+                    <input class="input" type="text" name="search" placeholder="Search" value={{ request.form['search'] }}>   
+                </form> 
             </div>
-        </form>
         <a href="/admin">Admin</a>
     </div>
 
@@ -53,33 +53,36 @@
                       </li>
                       {% endfor %}
                     </ul>
+
+
             <h2>Size</h2>
             <ul>
                     <li><label for="Small"><input type="checkbox" id="small" name="size" value="Small" onchange="this.form.submit()"  {% if 'Small' in activeFilters['size'] %}checked{% endif %}>Small</label></li>
                     <li><label for="Medium"><input type="checkbox" id="medium" name="size" value="Medium"  onchange="this.form.submit()" {% if 'Medium' in activeFilters['size'] %}checked{% endif %}>Medium</label></li>
                     <li><label for="Large"><input type="checkbox" id="large" name="size" value="Large" onchange="this.form.submit()"  {% if 'Large' in activeFilters['size'] %}checked{% endif %}>Large</label></li>
             </ul>
+
+
             <h2>Gender</h2>
             <ul>
                     <li><label for="Male"><input type="checkbox" id="Male" name="gender" value="Male" onchange="this.form.submit()" {% if 'Male' in activeFilters['gender'] %}checked{% endif %}>Male</label></li>
                     <li><label for="Female"><input type="checkbox" id="Female" name="gender" value="Female" onchange="this.form.submit()" {% if 'Female' in activeFilters['gender'] %}checked{% endif %}>Female</label></li>
                     <li><label for="Unisex"><input type="checkbox" id="Unisex" name="gender" value="Unisex" onchange="this.form.submit()" {% if 'Unisex' in activeFilters['gender'] %}checked{% endif %}>Unisex</label></li>
             </ul>
+
+
             <h2>Color</h2>
             <ul>
                 {% for type in types %}
-                    <li>
-                        <label for="{{ type }}">
-                            <input 
-                                type="checkbox"
-                                id="{{ type }}"
-                                name="colour"
-                                value="{{ type }}"
-                                onchange="this.form.submit()"
-                                {% if type in activeFilters["colour"] %}checked{% endif %}>
-                                {{ type }}
-                        </label>
-                    </li>
+                    <li><label for="{{ type }}"><input 
+                            type="checkbox"
+                            id="{{ type }}"
+                            name="colour"
+                            value="{{ type }}"
+                            onchange="this.form.submit()"
+                            {% if type in activeFilters["colour"] %}checked{% endif %}>
+                            {{ type }}
+                    </label></li>
                 {% endfor %}
             </ul>
             </form>

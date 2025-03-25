@@ -13,19 +13,29 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def allowed_file(filename):
-    """Check if the file has an allowed extension."""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 info = []
 sortBy = 'name'
 activeFilters = {"brand":[]}
+searchStr = ""
 
 
 @app.route('/search', methods=["POST"])
 def search():
-    global info
-    info = catalogue.searchItems(request.form['search'])
+    global searchStr
+    searchStr = request.form['search']
+    print(searchStr)
     return redirect(url_for('staff'))
+
+def setSearch():
+    if searchStr != "" and searchStr != "search":
+        print(catalogue.search_items(searchStr))
+        return(catalogue.search_items(searchStr)['matching_items'])
+    else:
+        return info
+    
+
 
 @app.route('/filters', methods=['GET', 'POST'])
 def add_Filters():
@@ -74,12 +84,14 @@ def saveImages(image, itemName):
 def staff():
     info = loadInfo()
     info = set_Filters()
+    info = setSearch()
     return render_template('staff.html', cards=info, brands=loadFilterOptions('brand'), types=loadFilterOptions('colour'), sortBy=sortBy, activeFilters=activeFilters)
 
 @app.route('/admin')
 def admin():
     info = loadInfo()
-    return render_template('admin.html', cards=info, brands=loadFilterOptions('brand'), types=loadFilterOptions('colour'), sortBy=sortBy)
+    info = set_Filters()
+    return render_template('admin.html', cards=info, brands=loadFilterOptions('brand'), types=loadFilterOptions('colour'), sortBy=sortBy, activeFilters=activeFilters)
 
 @app.route('/add')
 def add():
@@ -138,15 +150,16 @@ def updateItem(item_id):
             quantity = int(request.form.get('stock'))  # 'stock' in the form corresponds to 'quantity' in the backend
             brand = request.form.get('brand')
             image = request.files['image']
+            if image != "":
+                saveImages(image, name)
+            # image_filename = f"image_{item['name']}.png"
+            # image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
+            # image_path = image_path.replace('\\', '/')
             
-            image_filename = f"image_{item['name']}.png"
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
-            image_path = image_path.replace('\\', '/')
-            
-            try:
-                os.remove(image_path)
-            except Exception as e:
-                print(f'Error has occured {e}')
+            # try:
+            #     os.remove(image_path)
+            # except Exception as e:
+            #     print(f'Error has occured {e}')
         
             saveImages(image, name)
             
