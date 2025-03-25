@@ -21,6 +21,12 @@ sortBy = 'name'
 activeFilters = {"brand":[]}
 
 
+@app.route('/search', methods=["POST"])
+def search():
+    global info
+    info = catalogue.searchItems(request.form['search'])
+    return redirect(url_for('staff'))
+
 @app.route('/filters', methods=['GET', 'POST'])
 def add_Filters():
     global activeFilters
