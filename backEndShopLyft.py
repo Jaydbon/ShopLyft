@@ -136,25 +136,46 @@ class ClothingCatalogue:
         # return {'attribute': attribute, 'values': unique_values}
 
     def get_filtered_items(self, filters):
-        
-        #uhh for this make sure ur input is like: {"brand": ["Gucci", "polo"], "size": ""} for example
+
+        """
+        inputs should look like the one sent on discord: 
+
+        filters = {"brand": ["Gucci", "polo"], "size": ['small', 'medium'], "price":[0,60]}
+        filtered = catalogue.get_filtered_items(filters)
+
+        I left filter by price in the code cause it still has the greater than and less than feature,
+        just don't use it if it breaks the system
+
+        """
 
         if not self.items:
             return {'message': "No items in catalogue.", 'filtered_items': []}
-    
+
         filtered_items = self.items
         
         for key, values in filters.items():
             if not values:
                 continue
             
+            if key == "price":
+                if isinstance(values, list) and len(values) == 2:
+                    try:
+                        lower_bound = float(values[0])
+                        upper_bound = float(values[1])
+                        filtered_items = [
+                            item for item in filtered_items
+                            if lower_bound <= item.price <= upper_bound
+                        ]
+                    except (ValueError, TypeError):
+                        continue
+                continue
+            
             if not isinstance(values, list):
                 values = [values]
             
-            #makes everything lowercase 
             values = [str(value).strip().lower() for value in values if value and str(value).strip()]
             
-            if hasattr(self.items[0], key):  #checks if the attribute exists in the first item
+            if hasattr(self.items[0], key):  # Check if the attribute exists
                 filtered_items = [
                     item for item in filtered_items
                     if getattr(item, key, "").strip().lower() in values
