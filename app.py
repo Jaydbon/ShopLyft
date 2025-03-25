@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from backEndShopLyft import ClothingItem, ClothingCatalogue # changed from "from ClothingItem import ClothingCatalogue" -Jordyn
 # changed so it imports ClothingItem as well -Wingfung
 import os # new
+import csv
 
 app = Flask(__name__)
 
@@ -20,6 +21,28 @@ sortBy = 'name'
 activeFilters = {"brand":[]}
 searchStr = ""
 previousPage =""
+
+def loadUsers():
+    users = []
+    with open('adminLogins.csv', mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                users.append(row)
+    return users
+
+@app.route('/login', methods=['POST', 'GET'])
+def login(): 
+    return render_template('login.html')
+
+@app.route('/logged', methods=['POST', 'GET'])
+def logged():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    users = loadUsers()
+    for log in users:
+        if username == log['username'] and password == log['password']:
+            return redirect(url_for('admin'))
+    return redirect(url_for('login'))
 
 
 @app.route('/search', methods=["POST"])
