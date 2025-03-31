@@ -18,7 +18,7 @@ def allowed_file(filename):
 
 info = []
 sortBy = 'name'
-activeFilters = {"brand":[]}
+activeFilters = {"brand":[], "price":[]}
 searchStr = ""
 previousPage =""
 
@@ -45,6 +45,17 @@ def logged():
     return redirect(url_for('login'))
 
 
+@app.route('/priceUpdate', methods=["POST"])
+def priceUpdate():
+    low = request.form.getlist('low')
+    high = request.form.getlist('high')
+    print(low)
+    print(high)
+    activeFilters["price"] = [low[0],high[0]]
+
+    print(activeFilters)
+    return redirect(url_for(previousPage))
+
 @app.route('/search', methods=["POST"])
 def search():
     global searchStr
@@ -68,10 +79,6 @@ def add_Filters():
     activeFilters["size"] = request.form.getlist('size') if request.method == 'POST' else []
     activeFilters["gender"] = request.form.getlist('gender') if request.method == 'POST' else []
     activeFilters["colour"] = request.form.getlist('colour') if request.method == 'POST' else []
-    low = request.form.getlist('low')
-    high = request.form.getlist('high')
-    activeFilters["price"] = [low,high]
-    print(activeFilters)
     return redirect(url_for(previousPage))
 
 def set_Filters():
