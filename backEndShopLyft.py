@@ -1,6 +1,7 @@
 import getpass
 import csv
 import os
+from collections import Counter
 
 class ClothingItem:
     def __init__(self, name, size, colour, gender, price, quantity, brand, image=""):
@@ -184,8 +185,51 @@ class ClothingCatalogue:
         return {'filtered_items': [item.to_dict() for item in filtered_items]}
     
     def find_related_items(self, search_term):
-        # Placeholder (specifically for the failed unittest)
-        return []
+
+        """
+        should find items related to the specified item based on shared attributes, found people doing something similar here
+
+        https://stackoverflow.com/questions/8866011/the-approach-to-calculating-similar-objects-based-on-certain-weighted-criteria
+        https://stackoverflow.com/questions/16720549/calculating-a-weighted-similarity
+    
+        things to put in:
+            item_name (str): name of the item to find related items for
+            
+        returns:
+            dictionairy: contains message and list of related items
+        """
+        
+        if not search_term or not isinstance(search_term, str):
+            return {'message': "Invalid search term.", 'related_items': []}
+        
+        search_lower = search_term.strip().lower()
+        related_items = []
+        
+        for item in self.items:
+            # count matches based on attributes
+            match_score = 0
+            
+            if search_lower in item.name.lower():
+                match_score += 3  #higher weight for name match
+            if search_lower in item.brand.lower():
+                match_score += 2  # brand is also important
+            if search_lower in item.colour.lower():
+                match_score += 1
+            if search_lower in item.size.lower():
+                match_score += 1
+            if search_lower in item.gender.lower():
+                match_score += 1
+            
+            if match_score > 0:
+                related_items.append((match_score, item))
+        
+        #sorting by the match scores in descending order
+        related_items.sort(reverse=True, key=lambda x: x[0])
+        
+        return {
+            'message': f"Found {len(related_items)} related items.",
+            'related_items': [item.to_dict() for _, item in related_items]
+        }
 
     def filter_by_price(self, lower_bound, upper_bound):
 
@@ -335,3 +379,6 @@ class ClothingStore:
 
     def search_items(self, search_string):
         return self.catalogue.search_items(search_string)
+
+    def find_related_items(self, item_name):
+        return self.catalogue.find_related_items(item_name)
