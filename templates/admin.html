@@ -86,6 +86,16 @@
                 {% endfor %}
             </ul>
             </form>
+            <form action="/priceUpdate" method="POST">
+                <label for="low">Low:</label>
+                <input type="text" id="low" name="low" value="{{ activeFilters['price'][0] }}">
+                <br>
+                <label for="password">High:</label>
+                <input type="text" id="high" name="high" value="{{ activeFilters['price'][1] }}">
+                <button type="submit">Submit Price</button>
+            </form>
+
+
             <a class="add-button-redirect" href="/add">Add an Item</a>
         </div>
         <div class="display">
