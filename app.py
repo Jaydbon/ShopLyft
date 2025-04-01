@@ -65,12 +65,12 @@ def search():
 
 def setSearch():
     if searchStr != "" and searchStr != "search":
-        print(catalogue.search_items(searchStr))
-        return(catalogue.search_items(searchStr)['matching_items'])
+        inf = catalogue.search_items(searchStr)['matching_items']
+        if inf == []:
+            return catalogue.find_related_items(searchStr)['related_items']
+        return inf 
     else:
         return info
-    
-
 
 @app.route('/filters', methods=['GET', 'POST'])
 def add_Filters():
@@ -152,11 +152,28 @@ def deleteItem(item_id):
     global info
     for item in info:
         if item['name'] == item_id:
+            if item['quantity'] >= 10:
+                return f"""
+                <p>The stock count is higher than 10 are you sure you want to delete?</p>
+                <form action="/confirm-delete/{item_id}" method="post">
+                    <button type="submit">Confirm</button>
+                </form>
+                """
             catalogue.remove_item(item_id)
 
     info = [item for item in info if item['name'] != item_id]
-    print(item_id)
     return redirect(url_for('admin'))
+
+@app.route('/confirm-delete/<item_id>', methods=['POST'])
+def confirmDeleteItem(item_id):
+    global info
+    for item in info:
+        if item['name'] == item_id:
+            catalogue.remove_item(item_id)
+            return redirect(url_for(previousPage))
+
+    return render_template('modify.html', item=item)
+
 
 @app.route('/submit', methods=['POST'])
 def submit():
