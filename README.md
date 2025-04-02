@@ -1,103 +1,199 @@
 # ShopLyft Clothing Catalogue
 ## About the Project
-This project provides an interactive clothing catalogue for managing stock. All users can search, sort, and filter items by keyword (TODO: and by related terms), as well as by attributes like brand, size, gender, and type. Admin users have additional permissions to add, remove, and edit stock items. Items are displayed with a short descriptive title, price, quantity in stock, and image.
+**ShopLyft** is a comprehensive clothing management system that provides:
+- A web-based interface for inventory management
+- Role-based access control (admin and staff)
+- Full creating, removing, and editing operations for clothing items (admin)
+- Advanced search and filtering capabilities
+- Image handling for product visualization
+
+The system uses Flask for the web interface and Python for backend operations, with data stored in CSV format.
 
 ## Built With:
-- **Flask**: A lightweight web framework for building web applications.
-- **Python**: The programming language used for both the backend logic and handling data.
+- **Flask**: A lightweight web framework for the application interface.
+- **Python**: Backend logic and data processing.
+- **CSV**: Data storage format for items and users.
+- **Virtual Environments**: For dependency management.
 
 ## Prerequisites
 - **Python 3.x** (Recommended version: 3.7 or higher)
     - Make sure python is installed on your system. You can download it from [python.org](https://www.python.org/downloads/)
 
 ## Dependencies
-The following libraries and modules are used in the project:
-- **Flask**: This is the web framework used to create the web application.
-- **os**: Standard Python library used for interacting with the operating system (*e.g, handling file paths and directories*)
-- **csv**: Standard Python library used to read from and write to CSV files that store clothing item data.
-- **getpass**: Standard Python library used to securely prompt users for passwords.
-- **subprocess**: Standard Python library used to execute shell commands from within Python. Used in this project to run commands like activating virtual environments, installing dependencies, starting the Flask application, and running tests.
-- **sys**: Standard Python library used for interacting with the Python runtime environment. In this project it's used to handle command-line arguments and exit the script when necessary.
 
-## Installing Dependencies
-To install the required dependencies, follow these steps:
-1. Install Flask
-    - Run the following command to install Flask:
-    ```bash
-    pip install Flask
-    ```
+Core Libraries:
+- **Flask**: Web application framework used to create the web application.
 
-## Getting Started
-1. **Clone the Repository**:
-    - To clone the repository to your local machine, run:
+Standard Python Modules:
+- **os**: File system operations that is used for operations such as handling file paths and directories.
+- **csv**: Daa storage management that is used to read from and write to CSV files that store clothing item data and user login data. 
+- **getpass**: Used to securely prompt users for passwords for login functionalities.
+- **subprocess**: System command execution from within Python that is used to run commands such as activating virtual environments, installing dependencies, starting the Flask application, and running tests. 
+- **sys**: System-specific parameters for interacting with the Python runtime environment that is used to handle command-line arguments and exit the script.
+- **tempfile**: Temporary file handling (for testing)
+- **unittest**: Testing framework
+
+## Installation & Setup
+Option 1: Manual Setup
+1. Clone the repository and navigate to project directory:
     ```bash
     git clone https://github.com/Jaydbon/ShopLyft.git
-    ```
-
-2. **Run the Application**:
-    - Navigate into the project directory:
-    ```bash
     cd ShopLyft
     ```
-    - Set up virtual environment:
+
+2. Create and activate virtual environment:
     ```bash
     python -m venv venv
+    # Windows:
+    venv/Scripts/activate
+    # macOS/Linux:
+    source venv/bin/activate
     ```
-    - Activate virtual environment:
-      
-        - **For macOS/Linux:**
-          ```bash
-          source venv/bin/activate
-          ```
-        - **For Windows:**
-          ```bash
-          venv\Scripts\activate
-          ```
-    - Install required packages:
+
+3. Install dependencies and required packages:
     ```bash
     pip install -r requirements.txt
     ```
-    - Run the Flask application:
+
+4. Run the application:
     ```bash
     python app.py
     ```
-    - Open the provided URL in your web browser to access the website.
-3. **Run the Application (Build Version)**:
-    - Navigate into the project directory:
+
+5. Open the provided URL in your web browser to access the website 
+
+Option 2: Using Build System
+1. Clone the repository and navigate to project directory:
     ```bash
+    git clone https://github.com/Jaydbon/ShopLyft.git
     cd ShopLyft
     ```
-    - Set up virtual environment:
+
+2. Create and activate virtual environment:
     ```bash
     python -m venv venv
+    # Windows:
+    venv/Scripts/activate
+    # macOS/Linux:
+    source venv/bin/activate
     ```
-    - Install required packages:
-    ```bash
-    python build.py install
-    ```
-    - Run the Flask application:
-    ```bash
-    python build.py run
-    ```
-    - Open the provided URL in your web browser to access the website (you may also run ```python build.py``` to check all commands).
-## Features
-### Staff Functions (Available to All Users)
-1. **Staff Page**:
-    - Access a list of all items currently in stock, with titles, prices, available quantities, and images.
 
-### Admin Functions (Available to Admins Only)
-1. **To Access the Admin Page**:
-    - Click the **Admin** button located at the top right of the Staff Page to access Admin functionalities.
-2. **To Add Items**:
-    - Click the **Add Item** button located at the bottom left of the Admin Page.
-    - Fill in the required fields to describe the item.
-3. **To Delete Items**:
-    - Click the **Delete** button next to any item to remove it from the catalogue.
-4. **To Edit Items**: (To be implemented in Iteration II)
-    - Admin users can edit item details (like price or quantity) from the Admin Page.
-5. **To Access the Staff Page**:
-    - From the Admin Page, click the **Staff** button on the top right to go back to the Staff Page.
-> Note: Only Admin users have access to add, edit, or delete items.
+3. Use the build system for setup:
+    ```bash
+    python build.py install # Installs required packages
+    python build.py run # Starts application
+    ```
+
+4. Open the provided URL in your web browser to access the website (you may also run ```python build.py``` to check all commands).
+
+
+## Features
+### Staff Users (available to all users)
+- View complete product catalogue
+- Search and filter items by various attributes:
+    - Name
+    - Size
+    - Colour
+    - Gender
+    - Price
+    - Quantity in stock
+- Sort items by various attributes:
+    - Brand
+    - Size
+    - Gender
+    - Colour
+    - Price range
+- View detailed product information
+
+### Admin Users (must log in as admin to access)
+- All staff privileges
+- Add new products to inventory
+- Edit existing products from catalogue
+- Manage product images
+
+## Usage Guide
+### Accessing the System
+1. **Login**:
+    - Default admin credentials:
+        - **Username**: admin[*number*]
+        - **Password**: password[*number*]
+        > Accepted usernames and passwords can be edited in the `adminLogins.csv`, but the default logins are set to admin/password, followed by a number
+
+2. **Navigation**:
+    - **Staff view**: Default on startup page
+        - Can also be accessed from Admin page through the `Staff` button located at the top right
+    - **Admin view**: Access through the `Admin` button located at the top right of the Staff Page to prompt login screen to access Admin functionalities.
+
+### Navigating Items
+Filter options are available on the left side of the webpage:
+- **Sort**: Dropdown menu with available attributes (name, size, colour, gender, price, quantity) to change the order in which items are displayed.
+- **Filters**: List of attributes (brand, size, gender, colour) with checkboxes for users to filter what items are displayed.
+- **Price range**: Items can be filtered through a price range by inputting the lowest and highest price desired, then clicking `Submit Price`.
+- **Search**: Users can search for items through both exact terms and relevant terms by typing in the search bar at the top of the page and then pressing the `Enter` key on their keyboard.
+
+### Managing Inventory
+> Note: Only available to validated Admin users
+#### Adding Items
+1. Navigate to Admin view
+2. Click the blue `Add an Item` button located at the bottom left
+3. Complete the required fields with:
+    - Name
+    - Size (dropdown menu)
+    - Colour
+    - Gender (dropdown menu)
+    - Price
+    - Stock (number in stock)
+    - Brand
+    - Image (upload an image)
+4. Click `Save` to successfully upload item
+5. Can either return by clicking `Back to Catalogue` or continue adding items
+
+### Editing Items:
+1. Locate item in Admin view
+2. Click `Modify` on desired item
+3. Modify desired fields
+4. Click `Save` to successfully save changes
+
+### Deleting Items:
+1. Locate item in Admin view
+2. Click `Modify` on desired item
+3. Click `Delete Item` to successfully delete item
+    > Note: If there are more than 10 items in the catalogue, the UI will prompt the user to confirm that they want to delete this item.
 
 ## Troubleshooting
-- **Missing CSV File**: The application will create a `catalogue.csv` file automatically if it does not already exist.
+### Common Issues:
+- **Missing Data Files**:
+    - System automatically creates required CSV files
+        - Will create a `catalogue.csv` file if it does not already exist
+    - Ensure write permissions in project directory
+- **Image Upload Issues**:
+    - Verify `static/images` directory exists
+    - Check file permissions
+    - Supported formats for addition through web application: PNG
+    - Supported formats for manual CSV addition: PNG, JPG, JPEG, GIF
+- **Authentication Problems**:
+    - Verify `adminLogins.csv` exists
+    - Check file format (CSV with `username,password` columns)
+    - Ensure desired login information is correctly included in the CSV
+
+## Testing
+The system includes comprehensive unit tests that can be run using:
+```bash
+python build.py test
+```
+
+The unit tests cover:
+- Clothing item creation
+- User authentication
+- Catalogue operations
+
+## Future Enhancements
+1. User Management:
+    - Additional user roles
+    - Password reset functionality
+2. Advanced Features:
+    - Inventory reporting
+    - Barcode integration
+3. UI Improvements:
+    - Mobile-responsive design
+    - Enhanced search interface
