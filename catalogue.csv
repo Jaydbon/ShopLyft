@@ -1,28 +1,28 @@
 name,size,colour,gender,price,quantity,brand,image
-Tunic,Large,pink,Unisex,93.18,3,Polo,images/image_tunic.png
-Sundress,Large,black,Female,94.77,12,Gucci,images/image_bsundress.png
-Hoodie,Small,purple,Unisex,37.93,8,Polo,images/image_phoddie.png
-Dress,Large,blue,Female,73.91,40,Unknown,images/img5.png
-T-shirt,Small,black,Unisex,53.39,49,Polo,images/img6.png
-Sweater,Small,pink,Unisex,70.17,13,Unknown,images/img7.png
-Hoodie,Medium,blue,Male,54.36,28,Gucci,images/img9.png
-Long-sleeve Shirt,Small,pink,Female,21.36,42,Unknown,images/img10.png
-Skirt,Large,blue,Female,53.09,34,Ralph Lauren,images/img11.png
-Leggings,Medium,purple,Female,17.74,26,Gucci,images/img12.png
-Joggers,Medium,blue,Female,46.87,33,Gucci,images/img13.png
-Overalls,Small,blue,Male,21.43,39,Gucci,images/img14.png
-Windbreaker,Large,blue,Unisex,88.74,43,Levi,images/img15.png
-Vest,Small,blue,Unisex,24.47,50,Levi,images/img16.png
-Tracksuit,Small,pink,Female,13.31,34,Unknown,images/img17.png
-Sundress,Medium,purple,Female,96.32,24,Unknown,images/img18.png
-Dress,Small,white,Unisex,61.56,35,Levi,images/img19.png
-Jeans,Small,pink,Unisex,68.74,4,Unknown,images/img20.png
-T-shirt,Small,white,Male,94.78,44,Gucci,images/img21.png
-Sweater,Large,blue,Unisex,19.78,47,Unknown,images/img22.png
-Hoodie,Medium,blue,Female,35.92,47,Unknown,images/img24.png
-Long-sleeve Shirt,Large,pink,Male,65.27,42,Levi,images/img25.png
 Blazer,Medium,gray,Male,89.99,7,Hugo Boss,images/img26.png
+Cool Blazer,Small,olive,Female,79.9,8,Gucci,images/img30.png
 Cargo Pants,Large,black,Male,49.99,14,Dickies,images/img27.png 
+Dress,Large,blue,Female,73.91,40,Unknown,images/img5.png
+Cool Dress,Small,white,Unisex,61.56,35,Levi,images/img19.png
 Full Shirt,Medium,light blue,Male,42.5,20,Polo,images/img28.png
+Hoodie,Medium,blue,Female,35.92,47,Unknown,images/img24.png
+Cool Hoodie,Medium,blue,Male,54.36,28,Gucci,images/img9.png
+Awesome Hoodie,Small,purple,Unisex,37.93,8,Polo,images/image_phoddie.png
+Jeans,Small,pink,Unisex,68.74,4,Unknown,images/img20.png
+Joggers,Medium,blue,Female,46.87,33,Gucci,images/img13.png
 Knit Sweater,Large,maroon,Unisex,36.9,15,Ralph Lauren,images/img29.png
-Blazer,Small,olive,Female,79.9,8,Gucci,images/img30.png
+Leggings,Medium,purple,Female,17.74,26,Gucci,images/img12.png
+Cool Long-sleeve Shirt,Large,pink,Male,65.27,42,Levi,images/img25.png
+Long-sleeve Shirt,Small,pink,Female,21.36,42,Unknown,images/img10.png
+Overalls,Small,blue,Male,21.43,39,Gucci,images/img14.png
+Skirt,Large,blue,Female,53.09,34,Ralph Lauren,images/img11.png
+Cool Sundress,Large,black,Female,94.77,12,Gucci,images/image_bsundress.png
+Sundress,Medium,purple,Female,96.32,24,Unknown,images/img18.png
+Sweater,Large,blue,Unisex,19.78,47,Unknown,images/img22.png
+Cool Sweater,Small,pink,Unisex,70.17,13,Unknown,images/img7.png
+T-shirt,Small,black,Unisex,53.39,49,Polo,images/img6.png
+Cool T-shirt,Small,white,Male,94.78,44,Gucci,images/img21.png
+Tracksuit,Small,pink,Female,13.31,34,Unknown,images/img17.png
+Tunic,Large,pink,Unisex,93.18,3,Polo,images/image_tunic.png
+Vest,Small,blue,Unisex,24.47,50,Levi,images/img16.png
+Windbreaker,Large,blue,Unisex,88.74,43,Levi,images/img15.png

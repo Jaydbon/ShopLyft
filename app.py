@@ -20,7 +20,7 @@ info = []
 sortBy = 'name'
 activeFilters = {"brand":[], "price":[]}
 searchStr = ""
-previousPage =""
+previousPage ='staff'
 
 def loadUsers():
     users = []
