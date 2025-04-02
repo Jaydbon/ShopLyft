@@ -170,7 +170,7 @@ Filter options are available on the left side of the webpage:
     - Verify `static/images` directory exists
     - Check file permissions
     - Supported formats for addition through web application: PNG
-    - Supported formats for manual CSV addition: PNG, JPG, JPEG
+    - Supported formats for manual CSV addition: PNG, JPG, JPEG, GIF
 - **Authentication Problems**:
     - Verify `adminLogins.csv` exists
     - Check file format (CSV with `username,password` columns)

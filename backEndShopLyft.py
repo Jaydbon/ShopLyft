@@ -113,7 +113,7 @@ class ClothingCatalogue:
                 'price': str(item.price),
                 'quantity': str(item.quantity),
                 'brand': str(item.brand),
-                'image': str(item.image)   # image is returned as a string (think this is what you wanted)
+                'image': str(item.image)   # image is returned as a string
             }
             for item in self.items
         ]
