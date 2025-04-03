@@ -76,14 +76,14 @@ class TestUserManager(unittest.TestCase):
         result = self.user_manager.login("wronguser", "wrongpass")
         self.assertIn("Invalid credentials", result['message'])
 
-    # # Opaque
-    # def test_invalid_login_attempts(self):
-    #     result1 = self.user_manager.login("testuser", "wrongpass")
-    #     result2 = self.user_manager.login("testuser", "incorrect")
-    #     self.assertIn("Invalid credentials", result1['message'])
-    #     self.assertIn("Invalid credentials", result2['message'])
-    #     # Ensure that no user is logged in after invalid attempts.
-    #     self.assertIsNone(self.user_manager.logged_in_user)
+    # Opaque
+    def test_invalid_login_attempts(self):
+        result1 = self.user_manager.login("testuser", "wrongpass")
+        result2 = self.user_manager.login("testuser", "incorrect")
+        self.assertIn("Invalid credentials", result1['message'])
+        self.assertIn("Invalid credentials", result2['message'])
+        # Ensure that no user is logged in after invalid attempts.
+        self.assertIsNone(self.user_manager.logged_in_user)
 
 ##############################
 # Tests for ClothingCatalogue
@@ -110,43 +110,50 @@ class TestClothingCatalogue(unittest.TestCase):
             os.remove(self.filename)
     
     def test_find_related_items(self):
-        # Expectation is that searching for "blue" will return two items:
-        # one with color "Blue" and one with color "Dark Blue".
-        # Since the functionality isn't implemented, the test will fail.
+        # Searching for "blue" should match items with "Blue" and "Dark Blue" in their colour.
         result = self.catalogue.find_related_items("blue")
-        self.assertEqual(len(result), 2, "Expected 2 related items for search term 'blue'")
-
-    # # Additional TB Test: Test save_items writes to a file correctly.
-    # def test_save_items(self):
-    #      # Add a new item.
-    #     new_item = ClothingItem("Sweater", "L", "Green", "Unisex", 29.99, 3, "H&M")
-    #     self.catalogue.items.append(new_item)
-    #     # Save items and verify the save message.
-    #     result = self.catalogue.save_items()
-    #     self.assertIn("Items saved successfully.", result['message'])
+        related_items = result.get('related_items', [])
         
-    #     # Read the temporary file back to verify contents.
-    #     with open(self.filename, mode='r') as file:
-    #         reader = csv.DictReader(file)
-    #         rows = list(reader)
-    #     self.assertEqual(len(rows), 4)  # 3 initial items + 1 new item.
-    #     # Check new item's attributes.
-    #     self.assertEqual(rows[-1]['name'], "Sweater")
-    #     self.assertEqual(rows[-1]['size'], "L")
-    #     self.assertEqual(rows[-1]['colour'], "Green")
-    #     self.assertEqual(rows[-1]['gender'], "Unisex")
-    #     self.assertAlmostEqual(float(rows[-1]['price']), 29.99)
-    #     self.assertEqual(int(rows[-1]['quantity']), 3)
-    #     self.assertEqual(rows[-1]['brand'], "H&M")
-    #     self.assertEqual(rows[-1]['image'], "")
+        # Check that exactly 2 items are returned.
+        self.assertEqual(len(related_items), 2, "Expected 2 related items for search term 'blue'")
+        self.assertEqual(result.get('message'), "Found 2 related items.")
+        
+        # Ensure that items returned are the expected ones.
+        expected_names = {"TShirt", "Jacket"}
+        returned_names = {item['name'] for item in related_items}
+        self.assertEqual(returned_names, expected_names)
 
-    # # Additional OB Test: Removing a non-existent item.
-    # def test_remove_nonexistent_item(self):
-    #     initial_count = len(self.catalogue.items)
-    #     result = self.catalogue.remove_item("NonExistentItem")
-    #     # Since no item matches, the count should remain unchanged.
-    #     self.assertEqual(len(self.catalogue.items), initial_count)
-    #     self.assertIn("removed successfully", result['message'])
+    # Additional TB Test: Test save_items writes to a file correctly.
+    def test_save_items(self):
+         # Add a new item.
+        new_item = ClothingItem("Sweater", "L", "Green", "Unisex", 29.99, 3, "H&M")
+        self.catalogue.items.append(new_item)
+        # Save items and verify the save message.
+        result = self.catalogue.save_items()
+        self.assertIn("Items saved successfully.", result['message'])
+        
+        # Read the temporary file back to verify contents.
+        with open(self.filename, mode='r') as file:
+            reader = csv.DictReader(file)
+            rows = list(reader)
+        self.assertEqual(len(rows), 4)  # 3 initial items + 1 new item.
+        # Check new item's attributes.
+        self.assertEqual(rows[-1]['name'], "Sweater")
+        self.assertEqual(rows[-1]['size'], "L")
+        self.assertEqual(rows[-1]['colour'], "Green")
+        self.assertEqual(rows[-1]['gender'], "Unisex")
+        self.assertAlmostEqual(float(rows[-1]['price']), 29.99)
+        self.assertEqual(int(rows[-1]['quantity']), 3)
+        self.assertEqual(rows[-1]['brand'], "H&M")
+        self.assertEqual(rows[-1]['image'], "")
+
+    # Additional OB Test: Removing a non-existent item.
+    def test_remove_nonexistent_item(self):
+        initial_count = len(self.catalogue.items)
+        result = self.catalogue.remove_item("NonExistentItem")
+        # Since no item matches, the count should remain unchanged.
+        self.assertEqual(len(self.catalogue.items), initial_count)
+        self.assertIn("removed successfully", result['message'])
 
 if __name__ == '__main__':
     unittest.main()
