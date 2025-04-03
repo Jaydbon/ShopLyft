@@ -1,4 +1,3 @@
-import getpass
 import csv
 import os
 from collections import Counter
@@ -12,7 +11,7 @@ class ClothingItem:
         self.price = price
         self.quantity = quantity
         self.brand = brand
-        self.image = image  #attribute for images 
+        self.image = image
 
     def __str__(self):
         return (f"Name: {self.name}, Size: {self.size}, Colour: {self.colour}, Gender: {self.gender}, "
@@ -35,7 +34,7 @@ class ClothingItem:
         return ClothingItem(
             data['name'], data['size'], data['colour'], data['gender'],
             float(data['price']), int(data['quantity']), data['brand'],
-            data.get('image', "")  #goes to empty if missing
+            data.get('image', "")  # goes to empty if missing
         )
 
 # catalogue that stores clothing items
@@ -128,13 +127,6 @@ class ClothingCatalogue:
         unique_values = list(set(getattr(item, attribute, "").strip() for item in self.items if getattr(item, attribute, "").strip()))
         # print(f"Unique values for {attribute}: {unique_values}")  # for debugging
         return {'attribute': attribute, 'values': unique_values}
-
-        # # should return a list of unique values for the attribute you put in
-        # if not hasattr(ClothingItem, attribute):
-        #     return {'message': "Invalid attribute."}
-
-        # unique_values = list(set(getattr(item, attribute) for item in self.items))
-        # return {'attribute': attribute, 'values': unique_values}
 
     def get_filtered_items(self, filters):
 
@@ -339,7 +331,7 @@ class UserManager:
                 return {'message': f"Welcome, {user.username}!", 'user': {'username': user.username, 'role': user.role}}
         return {'message': "Invalid credentials. Please try again."}
 
-# admin and Employee functions
+# admin and staff functions
 class ClothingStore:
     def __init__(self):
         self.catalogue = ClothingCatalogue()

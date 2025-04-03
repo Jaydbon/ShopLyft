@@ -115,7 +115,7 @@ class UserManager:
         print("Invalid credentials. Please try again.")
         return False
 
-# admin and Employee functions
+# admin and staff functions
 class ClothingStore:
     def __init__(self):
         self.catalogue = ClothingCatalogue()
@@ -200,9 +200,9 @@ class ClothingStore:
         print(f"Goodbye, {self.user_manager.logged_in_user.username}!")
         self.user_manager.logged_in_user = None
 
-#main Program
+# main program
 if __name__ == "__main__":
-    #creating the store 
+    # creating the store 
     store = ClothingStore()
 
     # add some users (admins and employees)
@@ -212,6 +212,6 @@ if __name__ == "__main__":
     store.user_manager.add_user(admin)
     store.user_manager.add_user(employee)
 
-    #login
+    # login
     if store.user_manager.login():
         store.handle_menu()

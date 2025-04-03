@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-from backEndShopLyft import ClothingItem, ClothingCatalogue # changed from "from ClothingItem import ClothingCatalogue" -Jordyn
-# changed so it imports ClothingItem as well -Wingfung
-import os # new
+from backEndShopLyft import ClothingItem, ClothingCatalogue
+import os
 import csv
 
 app = Flask(__name__)
@@ -22,6 +21,7 @@ activeFilters = {"brand":[], "price":[]}
 searchStr = ""
 previousPage =""
 
+# loads valid admin users using csv
 def loadUsers():
     users = []
     with open('adminLogins.csv', mode='r') as file:
