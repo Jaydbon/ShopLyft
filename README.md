@@ -214,6 +214,11 @@ The unit tests cover:
 - User authentication
 - Catalogue operations
 
+## Interesting Bugs Found (Fixed)
+- Inputting a range in the price sort for the catalogue to make 0 items show up, and then logging in to the admin page, causes you to be unable to see any item or undo the sorting
+- Getting the data for price caused it to be put into a list instead of a single value ([[0], [25]], instead of [0, 25])
+- Website crashed when you used empty searches in the search bar
+
 ## Future Enhancements
 1. User Management:
     - Additional user roles
