@@ -104,12 +104,39 @@ Option 2: Using Build System
     - Colour
     - Price range
 - View detailed product information
+- Search for items by relevant terms
 
 ### Admin Users (must log in as admin to access)
 - All staff privileges
-- Add new products to inventory
+- Add new products to catalogue
 - Edit existing products from catalogue
+- Remove existing products from catalogue (confirmation pop-up when there are 10+ items in inventory)
 - Manage product images
+
+### Implementations in Iterations
+Iteration 1:
+- View products and product information (Staff & Admin)
+- Add new products to inventory (Admin)
+- Remove existing products from catalogue (Admin)
+Iteration 2:
+- Edit existing products from catalogue (Admin)
+- Search and filter items by various attributes (Staff & Admin):
+    - Name
+    - Size
+    - Colour
+    - Gender
+    - Quantity in stock
+- Sort items by various attributes (Staff & Admin):
+    - Brand
+    - Size
+    - Gender
+    - Colour
+    - Price range
+Iteration 3:
+- Admin login (Admin)
+- Search for items by relevant terms (Staff)
+- Filter and/or sort items by price range (Staff & Admin)
+- Implemented confirmation pop-up when 10+ items are in inventory (Admin)
 
 ## Usage Guide
 ### Accessing the System
