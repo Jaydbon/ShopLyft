@@ -118,6 +118,7 @@ Iteration 1:
 - View products and product information (Staff & Admin)
 - Add new products to inventory (Admin)
 - Remove existing products from catalogue (Admin)
+
 Iteration 2:
 - Edit existing products from catalogue (Admin)
 - Search and filter items by various attributes (Staff & Admin):
@@ -132,6 +133,7 @@ Iteration 2:
     - Gender
     - Colour
     - Price range
+    
 Iteration 3:
 - Admin login (Admin)
 - Search for items by relevant terms (Staff)
