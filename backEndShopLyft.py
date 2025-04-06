@@ -40,10 +40,10 @@ class ClothingItem:
 
 # catalogue that stores clothing items
 class ClothingCatalogue:
-    def __init__(self, filename="catalogue.csv", image_folder="images"):
+    
+    def __init__(self, filename="catalogue.csv", image_folder="static/images"):  #default path set here/ last time it wasnt like this
         self.filename = filename
         self.image_folder = image_folder
-        self.items = []
         self.load_items()
 
     def load_items(self):
@@ -59,12 +59,24 @@ class ClothingCatalogue:
         return {'message': "Items loaded successfully.", 'items': [item.to_dict() for item in self.items]}
 
     def assign_images(self):
-        pass
-        # assigns images based on item order if not set in the csv
-        # image_files = sorted([f for f in os.listdir(self.image_folder) if f.endswith(".png")])
-        # for i, item in enumerate(self.items):
-        #     if not item.image and i < len(image_files):
-        #         item.image = os.path.join(self.image_folder, image_files[i])
+        try:
+            if not os.path.exists(self.image_folder):
+                print(f"Warning: Image folder not found at {self.image_folder}")
+                return
+
+            image_files = sorted(
+                [f for f in os.listdir(self.image_folder)
+                if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+            )
+
+            for i, item in enumerate(self.items):
+                if not item.image and i < len(image_files):
+                    #should work on the web with this
+                    item.image = f"{self.image_folder.replace(os.sep, '/')}/{image_files[i]}"
+        except Exception as e:
+            print(f"Image assignment error: {e}")
+
+
 
     def save_items(self):
         with open(self.filename, mode='w', newline='') as file:
@@ -94,7 +106,7 @@ class ClothingCatalogue:
         return {'message': "Item not found."}
 
     def sort_items(self, attribute):
-        if attribute in ['name','size', 'colour', 'gender', 'price', 'brand', 'quantity']: # Added quantity sorting - Jayden
+        if attribute in ['size', 'colour', 'gender', 'price', 'brand', 'quantity']: # Added quantity sorting - Jayden
             self.items.sort(key=lambda x: getattr(x, attribute))
             self.save_items()
             return {'message': f"Items sorted by {attribute} successfully."}
@@ -113,7 +125,7 @@ class ClothingCatalogue:
                 'price': str(item.price),
                 'quantity': str(item.quantity),
                 'brand': str(item.brand),
-                'image': str(item.image)   # image is returned as a string
+                'image': str(item.image)   # image is returned as a string (think this is what you wanted)
             }
             for item in self.items
         ]
@@ -223,13 +235,14 @@ class ClothingCatalogue:
             if match_score > 0:
                 related_items.append((match_score, item))
         
-        #sorting by the match scores in descending order
+        # Sort by match score in descending order
         related_items.sort(reverse=True, key=lambda x: x[0])
         
         return {
             'message': f"Found {len(related_items)} related items.",
             'related_items': [item.to_dict() for _, item in related_items]
         }
+
 
     def filter_by_price(self, lower_bound, upper_bound):
 
@@ -341,8 +354,10 @@ class UserManager:
 
 # admin and Employee functions
 class ClothingStore:
+    
     def __init__(self):
-        self.catalogue = ClothingCatalogue()
+        #catalogue now automatically uses static/images
+        self.catalogue = ClothingCatalogue(image_folder="static/images")
         self.user_manager = UserManager()
 
     def add_item(self, name, size, colour, gender, price, quantity, brand, image=""):
@@ -379,6 +394,6 @@ class ClothingStore:
 
     def search_items(self, search_string):
         return self.catalogue.search_items(search_string)
-
+    
     def find_related_items(self, item_name):
         return self.catalogue.find_related_items(item_name)
