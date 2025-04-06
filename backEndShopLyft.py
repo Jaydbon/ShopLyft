@@ -94,7 +94,7 @@ class ClothingCatalogue:
         return {'message': "Item not found."}
 
     def sort_items(self, attribute):
-        if attribute in ['size', 'colour', 'gender', 'price', 'brand', 'quantity']: # Added quantity sorting - Jayden
+        if attribute in ['name','size', 'colour', 'gender', 'price', 'brand', 'quantity']: # Added quantity sorting - Jayden
             self.items.sort(key=lambda x: getattr(x, attribute))
             self.save_items()
             return {'message': f"Items sorted by {attribute} successfully."}
